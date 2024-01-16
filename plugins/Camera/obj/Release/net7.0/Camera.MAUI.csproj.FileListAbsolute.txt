@@ -1,0 +1,13 @@
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\bin\Release\net7.0\Camera.MAUI.deps.json
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\bin\Release\net7.0\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\bin\Release\net7.0\Camera.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.csproj.AssemblyReference.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.AssemblyInfoInputs.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.AssemblyInfo.cs
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.csproj.CoreCompileInputs.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\XamlC.stamp
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\refint\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\Camera.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Camera\obj\Release\net7.0\ref\Camera.MAUI.dll

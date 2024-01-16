@@ -1,0 +1,12 @@
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.deps.json
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.csproj.AssemblyReference.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.AssemblyInfoInputs.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.AssemblyInfo.cs
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.csproj.CoreCompileInputs.cache
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\refint\Borescope.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\obj\Release\net7.0-windows10.0.19041.0\ref\Borescope.MAUI.dll

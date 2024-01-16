@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Borescope.MAUI</id>
+    <version>1.0.0</version>
+    <authors>Borescope.MAUI</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net7.0" />
+      <group targetFramework="net7.0-android33.0" />
+      <group targetFramework="net7.0-ios16.1" />
+      <group targetFramework="net7.0-maccatalyst16.1" />
+      <group targetFramework="net7.0-windows10.0.19041" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0\Borescope.MAUI.dll" target="lib\net7.0\Borescope.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-android\Borescope.MAUI.dll" target="lib\net7.0-android33.0\Borescope.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-android\Borescope.MAUI.xml" target="lib\net7.0-android33.0\Borescope.MAUI.xml" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-ios\Borescope.MAUI.dll" target="lib\net7.0-ios16.1\Borescope.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-maccatalyst\Borescope.MAUI.dll" target="lib\net7.0-maccatalyst16.1\Borescope.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-windows10.0.19041.0\Borescope.MAUI.dll" target="lib\net7.0-windows10.0.19041\Borescope.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\Borescope\bin\Release\net7.0-android\Borescope.MAUI.aar" target="lib\net7.0-android33.0\Borescope.MAUI.aar" />
+  </files>
+</package>

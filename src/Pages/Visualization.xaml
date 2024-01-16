@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Android_Native_Demonstration.Pages.Visualization"
+             Title="Visualization">
+    <VerticalStackLayout>
+        <!--Spacer-->
+        <Label/>
+        <!--Camera Text-->
+        <Label 
+            Text="Open Camera"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <!--Camera Button-->
+        <Button Text="Camera" Margin="20" Clicked="Button_Open_Camera"></Button>
+        <!--Enable Crop Image-->
+        <HorizontalStackLayout HorizontalOptions="Center">
+            <!--Text-->
+            <Label Text="Enable Crop" VerticalTextAlignment="Center"/>
+            <!--Checkbox-->
+            <CheckBox CheckedChanged="Enable_Crop"/>
+        </HorizontalStackLayout>
+        <!--Borescope Button-->
+        <Button Text="Borescope" Margin="20" Clicked="Button_Open_Borescope"></Button>
+        <!--Generic Preview-->
+        <Image x:Name="image_preview"/>
+        
+    </VerticalStackLayout>
+</ContentPage>
