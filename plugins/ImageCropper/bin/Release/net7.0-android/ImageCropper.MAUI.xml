@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ImageCropper.MAUI</name>
+    </assembly>
+    <members>
+        <member name="P:ImageCropper.Maui.ImageCropper.CropButtonTitle">
+            <summary>
+            Boton para realizar el recorte
+            </summary>
+        </member>
+    </members>
+</doc>

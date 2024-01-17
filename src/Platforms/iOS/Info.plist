@@ -28,5 +28,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+	<!--Camera Permission-->
+	<key>NSCameraUsageDescription</key>
+	<string>This app uses camera for capturing photos and videos from surveys and facial recognition</string>
+	<!--Microfone Permission-->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs access to the microphone for record videos</string>
 </dict>
 </plist>

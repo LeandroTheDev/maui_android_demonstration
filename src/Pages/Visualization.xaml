@@ -3,27 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Android_Native_Demonstration.Pages.Visualization"
              Title="Visualization">
-    <VerticalStackLayout>
-        <!--Spacer-->
-        <Label/>
-        <!--Camera Text-->
-        <Label 
+    <ScrollView>
+        <VerticalStackLayout>
+            <!--Spacer-->
+            <Label/>
+            <!--Camera Text-->
+            <Label 
             Text="Open Camera"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <!--Camera Button-->
-        <Button Text="Camera" Margin="20" Clicked="Button_Open_Camera"></Button>
-        <!--Enable Crop Image-->
-        <HorizontalStackLayout HorizontalOptions="Center">
-            <!--Text-->
-            <Label Text="Enable Crop" VerticalTextAlignment="Center"/>
-            <!--Checkbox-->
-            <CheckBox CheckedChanged="Enable_Crop"/>
-        </HorizontalStackLayout>
-        <!--Borescope Button-->
-        <Button Text="Borescope" Margin="20" Clicked="Button_Open_Borescope"></Button>
-        <!--Generic Preview-->
-        <Image x:Name="image_preview"/>
-        
-    </VerticalStackLayout>
+            <!--Camera Button-->
+            <Button Text="Camera" Margin="20" Clicked="Button_Open_Camera"></Button>
+            <!--Custom Camera Button-->
+            <Button Text="Custom Camera" Margin="20" Clicked="Button_Open_Custom_Camera"></Button>
+            <!--Enable Crop Image-->
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <!--Text-->
+                <Label Text="Enable Crop" VerticalTextAlignment="Center"/>
+                <!--Checkbox-->
+                <CheckBox CheckedChanged="Enable_Crop"/>
+            </HorizontalStackLayout>
+            <!--Enable Save Image-->
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <!--Text-->
+                <Label Text="Enable Save" VerticalTextAlignment="Center"/>
+                <!--Checkbox-->
+                <CheckBox CheckedChanged="Enable_Save"/>
+            </HorizontalStackLayout>
+            <!--Borescope Button-->
+            <Button Text="Borescope" Margin="20" Clicked="Button_Open_Borescope"></Button>
+            <!--Generic Preview-->
+            <Image x:Name="image_preview" HeightRequest="100" WidthRequest="100"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

@@ -16,6 +16,18 @@ build_metadata.AdditionalFiles.ManifestResourceName = Android_Native_Demonstrati
 build_metadata.AdditionalFiles.TargetPath = App.xaml
 build_metadata.AdditionalFiles.RelativePath = App.xaml
 
+[C:/Users/leandro.schmidt/source/repos/Android Native Demonstration/src/Components/CameraPreview.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Android_Native_Demonstration.Components.CameraPreview.xaml
+build_metadata.AdditionalFiles.TargetPath = Components\CameraPreview.xaml
+build_metadata.AdditionalFiles.RelativePath = Components\CameraPreview.xaml
+
+[C:/Users/leandro.schmidt/source/repos/Android Native Demonstration/src/Components/CropImage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = Android_Native_Demonstration.Components.CropImage.xaml
+build_metadata.AdditionalFiles.TargetPath = Components\CropImage.xaml
+build_metadata.AdditionalFiles.RelativePath = Components\CropImage.xaml
+
 [C:/Users/leandro.schmidt/source/repos/Android Native Demonstration/src/Pages/Visualization.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = Android_Native_Demonstration.Pages.Visualization.xaml
