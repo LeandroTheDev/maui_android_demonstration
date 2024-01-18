@@ -33,95 +33,85 @@ namespace ImageCropper.Maui
 
         public string CancelButtonTitle { get; set; } = "Cancel";
 
-        /// <summary>
-        /// Boton para realizar el recorte
-        /// </summary>
         public string CropButtonTitle { get; set; } = "Crop";
 
         public Action<string> Success { get; set; }
 
         public Action Failure { get; set; }
 
-        /*
-        public PickMediaOptions PickMediaOptions { get; set; } = new PickMediaOptions
-        {
-            PhotoSize = PhotoSize.Large,
-        };
-
-        public StoreCameraMediaOptions StoreCameraMediaOptions { get; set; } = new StoreCameraMediaOptions();
-        */
-
         public MediaPickerOptions MediaPickerOptions { get; set; } = new MediaPickerOptions();
 
-        public async void Show(Page page, string imageFile = null)
+        public async void Crop_Image(ImageSource image_file)
         {
-            if (imageFile == null)
+            string image_directory = "error";
+            // Create temporary file from stream
+            if (image_file is StreamImageSource streamImageSource)
             {
-                FileResult file = null;
-                string newFile = null;
-
-                string action = await page.DisplayActionSheet(SelectSourceTitle, CancelButtonTitle, null, TakePhotoTitle, PhotoLibraryTitle);
-                try
+                // Get strem from image
+                using (Stream stream = await streamImageSource.Stream(new CancellationToken()))
                 {
-                    if (action == TakePhotoTitle)
+                    // Null check
+                    if (stream != null)
                     {
-                        file = await MediaPicker.CapturePhotoAsync(MediaPickerOptions);
-                    }
-                    else if (action == PhotoLibraryTitle)
-                    {
-                        file = await MediaPicker.PickPhotoAsync(MediaPickerOptions);
-                    }
-                    else
-                    {
-                        Failure?.Invoke();
-                        return;
-                    }
+                        // Getting temporary file
+                        string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        image_directory = Path.Combine(tempDirectory, "temp_image.png");
 
-                    if (file != null)
-                    {
-                        // save the file into local storage
-                        newFile = Path.Combine(FileSystem.CacheDirectory, file.FileName);
-
-                        //Mover a cache local
-                        if (File.Exists(newFile))
+                        // Saving stream into file
+                        using (FileStream fs = new FileStream(image_directory, FileMode.Create))
                         {
-                            File.Delete(newFile);
+                            await stream.CopyToAsync(fs);
                         }
-
-                        //Copiarlo llevaba mucho trabajo
-                        using (var stream = await file.OpenReadAsync())
-                        using (var newStream = File.OpenWrite(newFile))
-                        {
-                            await stream.CopyToAsync(newStream);
-                            stream.Close();
-                            newStream.Close();
-                        }
-
-                        //File.Move(file.FullPath, newFile);
                     }
+                }
+            }
+            // Create temporary file from file
+            else if (image_file is FileImageSource fileImageSource)
+            {
+                // Get file path
+                string filePath = fileImageSource.File;
 
-                }
-                catch (Exception ex)
+                // Check null
+                if (!string.IsNullOrEmpty(filePath))
                 {
-                    Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
-                }
+                    // Get temporary path
+                    string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    image_directory = Path.Combine(tempDirectory, "temp_image.png");
 
-                if (file == null || newFile == null)
-                {
-                    Failure?.Invoke();
-                    return;
+                    // Add file to temporary path
+                    if (File.Exists(filePath))
+                    {
+                        File.Copy(filePath, image_directory, true);
+                    }
                 }
-                if (DeviceInfo.Platform == DevicePlatform.Android)
+            }
+            // Create temporary file from uri
+            else if (image_file is UriImageSource uriImageSource)
+            {
+                // Get image URL
+                string imageUrl = uriImageSource.Uri?.AbsoluteUri;
+
+                // Null Check
+                if (!string.IsNullOrEmpty(imageUrl))
                 {
-                    //Delay for fix Xamarin.Essentials.Platform.CurrentActivity no MediaPicker
-                    await Task.Delay(TimeSpan.FromMilliseconds(2000));
+                    // Get image with http
+                    using (HttpClient client = new HttpClient())
+                    {
+                        // Getting image bytes
+                        byte[] imageBytes = await client.GetByteArrayAsync(imageUrl);
+
+                        // Getting temporary path
+                        string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                        image_directory = Path.Combine(tempDirectory, "temp_image.jpg");
+
+                        // Saving image to temporary path
+                        File.WriteAllBytes(image_directory, imageBytes);
+                    }
                 }
-                imageFile = newFile;
             }
 
-            // small delay
-            await Task.Delay(TimeSpan.FromMilliseconds(100));
-            DependencyService.Get<IImageCropperWrapper>().ShowFromFile(this, imageFile);
+            // Native call to crop image
+            DependencyService.Get<IImageCropperWrapper>().Show_From_File(this, image_directory);
         }
     }
 }

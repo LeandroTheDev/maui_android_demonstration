@@ -67,6 +67,12 @@ public partial class Visualization : ContentPage
             image_preview.Source = null;
             //Update image
             image_preview.Source = imageSource;
+
+            if (enable_crop)
+            {
+            }
+
+
             if (enable_save)
             {
                 // Creating the directory
@@ -77,7 +83,8 @@ public partial class Visualization : ContentPage
                 if (result == "sucess")
                 {
                     await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
-                } else
+                }
+                else
                 {
                     await DisplayAlert("Error", result, "OK");
                 }

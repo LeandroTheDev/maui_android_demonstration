@@ -1,6 +1,6 @@
 ﻿# Compiling and using the plugin
 ### Compiling
--  dotnet pack -c Release
+-  dotnet build -c Release
 ### Adding to your project
 - dotnet add package ImageCropper.MAUI --source ..\plugins\ImageCropper\bin\Release\
 

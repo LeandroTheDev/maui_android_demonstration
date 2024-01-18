@@ -9,7 +9,8 @@ namespace ImageCropper.Maui
     {
         public MauiAppCompatActivity AppActivity { get; set; }
 
-        public void Init(MauiAppCompatActivity activity)
+        // This needs to be called in MainActivity.cs throught the OnCreate function
+        public void Instanciate_Image_Cropper(MauiAppCompatActivity activity)
         {
             DependencyService.Register<IImageCropperWrapper, PlatformImageCropper>();
             AppActivity = activity;;

@@ -2,6 +2,6 @@
 {
     public interface IImageCropperWrapper
     {
-        void ShowFromFile(ImageCropper imageCropper, string imageFile);
+        void Show_From_File(ImageCropper imageCropper, string imageFile);
     }
 }
