@@ -1,0 +1,8 @@
+src/obj
+src/bin
+plugins/Borescope/obj
+plugins/Camera/obj
+plugins/ImageCropper/obj
+plugins/Borescope/.vs
+plugins/Camera/.vs
+plugins/ImageCropper/.vs

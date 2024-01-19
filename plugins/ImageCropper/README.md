@@ -6,17 +6,25 @@
 
 ### Android
 
-Add the following to your AndroidManifest.xml inside the <application> tags:
-```xml	
+In AndroidManifest.xml
+```xml
+<application ...>
+	<!--Enabling ImageCropper Theme-->
 	<activity android:name="com.canhub.cropper.CropImageActivity"
-	          android:theme="@style/Base.Theme.AppCompat"/>	
+		android:theme="@style/Base.Theme.AppCompat"/>
+</application>
 ```
 
 In MainActivity.cs file:
 ```cs
-    new ImageCropper.Maui.Platform.Init();
+    protected override void OnCreate(Bundle savedInstanceState)
+    {
+        base.OnCreate(savedInstanceState);
+        // ImageCropper Plugin
+        new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
+    }
 
-
+```
 ### iOS
 
 In AppDelegate.cs file:
@@ -26,7 +34,7 @@ In AppDelegate.cs file:
 ```
 ## Usage
 
-### Show ImageCropper page.
+### Crop Image
 ```cs
     new ImageCropper()
     {
@@ -37,9 +45,9 @@ In AppDelegate.cs file:
                 imageView.Source = ImageSource.FromFile(imageFile);
             });
         }
-    }.Show(this);
+    }.Crop_Image(image_source);
 ```
-### Show it with additional parameters.
+### Crop Image with additional parameters.
 ```cs
     new ImageCropper()
     {
@@ -58,24 +66,5 @@ In AppDelegate.cs file:
                 imageView.Source = ImageSource.FromFile(imageFile);
             });
         }
-    }.Show(this);
+    }.Crop_Image(image_source);
 ```
-### Show it with a image
-```cs
-    new ImageCropper()
-    {
-        Success = (imageFile) =>
-        {
-            Dispatcher.Dispatch(() =>
-            {
-                imageView.Source = ImageSource.FromFile(imageFile);
-            });
-        }
-    }.Show(this, imageFileName);
-```
-### Properties
-* PageTitle
-* AspectRatioX
-* AspectRatioY
-* CropShape
-* Initial image can be set in Show function.

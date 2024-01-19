@@ -1,1 +1,1 @@
-All plugins is stored here
+All plugins are stored here

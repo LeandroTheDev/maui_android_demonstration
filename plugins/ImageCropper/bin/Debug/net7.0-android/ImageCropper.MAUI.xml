@@ -4,10 +4,6 @@
         <name>ImageCropper.MAUI</name>
     </assembly>
     <members>
-        <member name="P:ImageCropper.Maui.ImageCropper.CropButtonTitle">
-            <summary>
-            Boton para realizar el recorte
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:ImageCropper.Maui.ImageCropper.Crop_Image(Microsoft.Maui.Controls.ImageSource,System.String)" -->
     </members>
 </doc>

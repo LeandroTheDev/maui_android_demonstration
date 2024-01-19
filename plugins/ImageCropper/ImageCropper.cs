@@ -41,77 +41,73 @@ namespace ImageCropper.Maui
 
         public MediaPickerOptions MediaPickerOptions { get; set; } = new MediaPickerOptions();
 
-        public async void Crop_Image(ImageSource image_file)
+        /// <summary>
+        /// Crop the image by the ImageSource or string path to the image
+        /// <para><para>You need to provide a Success call back to receive the
+        /// cropped image
+        /// <para><para>Accepts the three ImageSources (Stream,File,Uri)
+        /// </summary>
+        /// <param name="imageSource"></param>
+        /// <param name="directory"></param>
+        /// <exception cref="Exception"></exception>
+        public async void Crop_Image(ImageSource imageSource = null, string directory = null)
         {
-            string image_directory = "error";
-            // Create temporary file from stream
-            if (image_file is StreamImageSource streamImageSource)
+            if (imageSource == null && directory == null){
+                throw new Exception("Double nulls, ImageSource and Directory not provided");
+            }
+            // If Directory is not provided
+            if (directory == null)
             {
-                // Get strem from image
-                using (Stream stream = await streamImageSource.Stream(new CancellationToken()))
+                byte[] image_bytes = null;
+                // ImageSource from a Stream
+                if (imageSource is IStreamImageSource)
                 {
-                    // Null check
-                    if (stream != null)
-                    {
-                        // Getting temporary file
-                        string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                        image_directory = Path.Combine(tempDirectory, "temp_image.png");
+                    Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
+                    byte[] bytesAvailable = new byte[stream.Length];
+                    stream.Read(bytesAvailable, 0, bytesAvailable.Length);
 
-                        // Saving stream into file
-                        using (FileStream fs = new FileStream(image_directory, FileMode.Create))
+                    image_bytes = bytesAvailable;
+                }
+                // ImageSource from a File
+                else if (imageSource is FileImageSource fileImageSource)
+                {
+                    var filePath = fileImageSource.File;
+                    if (!string.IsNullOrEmpty(filePath))
+                    {
+                        image_bytes = await File.ReadAllBytesAsync(filePath);
+                    }
+                }
+                // ImageSource from a Path
+                else if (imageSource is UriImageSource uriImageSource)
+                {
+                    var uri = uriImageSource.Uri;
+                    if (uri != null)
+                    {
+                        using (var client = new System.Net.Http.HttpClient())
                         {
-                            await stream.CopyToAsync(fs);
+                            image_bytes = await client.GetByteArrayAsync(uri);
                         }
                     }
                 }
-            }
-            // Create temporary file from file
-            else if (image_file is FileImageSource fileImageSource)
-            {
-                // Get file path
-                string filePath = fileImageSource.File;
-
-                // Check null
-                if (!string.IsNullOrEmpty(filePath))
-                {
-                    // Get temporary path
-                    string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                    image_directory = Path.Combine(tempDirectory, "temp_image.png");
-
-                    // Add file to temporary path
-                    if (File.Exists(filePath))
-                    {
-                        File.Copy(filePath, image_directory, true);
-                    }
-                }
-            }
-            // Create temporary file from uri
-            else if (image_file is UriImageSource uriImageSource)
-            {
-                // Get image URL
-                string imageUrl = uriImageSource.Uri?.AbsoluteUri;
 
                 // Null Check
-                if (!string.IsNullOrEmpty(imageUrl))
+                if (image_bytes == null)
                 {
-                    // Get image with http
-                    using (HttpClient client = new HttpClient())
-                    {
-                        // Getting image bytes
-                        byte[] imageBytes = await client.GetByteArrayAsync(imageUrl);
-
-                        // Getting temporary path
-                        string tempDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                        image_directory = Path.Combine(tempDirectory, "temp_image.jpg");
-
-                        // Saving image to temporary path
-                        File.WriteAllBytes(image_directory, imageBytes);
-                    }
+                    throw new Exception("Image bytes is null, did the ImageSource is valid?");
                 }
+                // Temporary folder
+                string image_directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
+                // Writing the temporary image
+                await File.WriteAllBytesAsync(image_directory, image_bytes);
+                // Native call to crop image
+                DependencyService.Get<IImageCropperWrapper>().ShowFromFile(this, image_directory);
             }
-
-            // Native call to crop image
-            DependencyService.Get<IImageCropperWrapper>().Show_From_File(this, image_directory);
+            // Directory provided
+            else
+            {
+                // Native call to crop image
+                DependencyService.Get<IImageCropperWrapper>().ShowFromFile(this, directory);
+            }
         }
     }
 }

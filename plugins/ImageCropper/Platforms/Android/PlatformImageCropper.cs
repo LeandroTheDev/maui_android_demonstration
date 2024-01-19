@@ -7,7 +7,7 @@ namespace ImageCropper.Maui
     // All the code in this file is only included on Android.
     public class PlatformImageCropper : IImageCropperWrapper
     {
-        public void Show_From_File(ImageCropper imageCropper, string imageFile)
+        public void ShowFromFile(ImageCropper imageCropper, string imageFile)
         {
             try
             {

@@ -19,19 +19,12 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Camera pluging for .NET MAUI Apps</Title>
 		<Description>A Camera View control for .NET MAUI applications.</Description>
-		<Copyright></Copyright>
-		<PackageProjectUrl>https://github.com/hjam40/Camera.MAUI</PackageProjectUrl>
-		<PackageIcon>camera.maui.png</PackageIcon>
-		<PackageReadmeFile>Readme.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/hjam40/Camera.MAUI</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
+		<RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>csharp; dotnet; cross-platform; camera; cameraview; codebar; qr; qr-decoder; codebar-encoder; codebar-decoder; camera-component; camera-view;  plugin; maui; dotnet-maui;</PackageTags>
-		<Authors>hjam40</Authors>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Authors>LeandroTheDev</Authors>		
 		<Version>1.5</Version>
-		<PackageReleaseNotes>Split barcode encoder/decoder in a different package. Fix some bugs
-</PackageReleaseNotes>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(TargetFramework)'=='net7.0-ios'">
@@ -48,10 +41,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="camera.maui.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
 	  <None Include="..\.editorconfig" Link=".editorconfig" />
 	  <None Include="..\Readme.md">
 	    <Pack>True</Pack>
