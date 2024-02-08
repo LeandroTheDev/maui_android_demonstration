@@ -1,0 +1,97 @@
+﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
+
+  <PropertyGroup>
+    <TargetFrameworks>net7.0;net7.0-android;net7.0-ios</TargetFrameworks>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+    <NeutralLanguage>en</NeutralLanguage>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Description>The local notification plugin provides a way to show local notifications on MAUI apps.</Description>
+    <Version>10.1.8</Version>
+
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <LangVersion>10.0</LangVersion>
+
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-ios'))">10.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$(TargetFramework.Contains('-android'))">21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('net6')) Or $(TargetFramework.StartsWith('net7'))">
+    <UseMaui>true</UseMaui>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <None Include="Screenshots\icon.png" Pack="True" PackagePath="\" Link="Properties\icon.png" />
+    <None Include="..\..\README.md" Pack="True" PackagePath="\" Link="Properties\README.md" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="**/Platforms/**/*.cs" />
+    <None Include="**/Platforms/**/*.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('MonoAndroid'))">
+    <Compile Include="**/Platforms/Android/**/*.cs" />
+    <PackageReference Include="Xamarin.Build.Download" Version="0.11.4" PrivateAssets="All"/>  
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.9.0.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Location" Version="120.0.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('Xamarin.iOS'))">
+    <Compile Include="**/Platforms/iOS/**/*.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Contains('-android'))">
+    <Compile Include="**/Platforms/Android/**/*.cs" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Location" Version="120.0.0.1" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Contains('-ios'))">
+    <Compile Include="**/Platforms/iOS/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

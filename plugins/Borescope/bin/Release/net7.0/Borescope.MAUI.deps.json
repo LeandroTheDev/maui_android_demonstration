@@ -6,8 +6,9 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v7.0": {
-      "Borescope.MAUI/1.0.0": {
+      "Borescope.MAUI/3.8": {
         "dependencies": {
+          "CommunityToolkit.Mvvm": "8.2.2",
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0",
@@ -50,6 +51,14 @@
           "Microsoft.Maui.Essentials.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "7.0.70.16"
+          }
+        }
+      },
+      "CommunityToolkit.Mvvm/8.2.2": {
+        "runtime": {
+          "lib/net6.0/CommunityToolkit.Mvvm.dll": {
+            "assemblyVersion": "8.2.0.0",
+            "fileVersion": "8.2.2.1"
           }
         }
       },
@@ -148,7 +157,7 @@
     }
   },
   "libraries": {
-    "Borescope.MAUI/1.0.0": {
+    "Borescope.MAUI/3.8": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -167,6 +176,13 @@
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
+    },
+    "CommunityToolkit.Mvvm/8.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-r0g0k9tGYdrnz8R7T3x5UiokDffeevzK/2P/9SBL6fqLgN8B157MIi/bVUWI1KAz6ZorZrK9AdABCWUeXZZsvA==",
+      "path": "communitytoolkit.mvvm/8.2.2",
+      "hashPath": "communitytoolkit.mvvm.8.2.2.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/7.0.0": {
       "type": "package",

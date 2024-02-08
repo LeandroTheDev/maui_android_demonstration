@@ -6,7 +6,6 @@
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
                 x:Class="Android_Native_Demonstration.Components.CameraPreview">
-
     <Grid>
         <!--Defining the Camera for use all the screen-->
         <Grid.RowDefinitions>

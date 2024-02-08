@@ -1,5 +1,4 @@
 using Android_Native_Demonstration.Components;
-using Microsoft.Maui.Controls;
 
 namespace Android_Native_Demonstration.Pages;
 
@@ -99,7 +98,7 @@ public partial class Visualization : ContentPage
 
     private async void Button_Open_Custom_Camera(object sender, EventArgs e)
     {
-        var cameraPreview = new CameraPreview();
+        var cameraPreview = new CameraPreview("Template");
         cameraPreview.Closed += async (sender, image_source) =>
         {
             //Delete previous images, this is necessary for some reason
@@ -195,10 +194,80 @@ public partial class Visualization : ContentPage
         }
     }
 
-    private async void Button_Open_Borescope(object sender, EventArgs e)
+    private async void Button_Open_Custom_Video(object sender, EventArgs e)
     {
-        await DisplayAlert("Alert", "Borescope not connected or not compatible", "OK");
-        BorescopePlugin.Borescope.Initialize();
+        var video_preview = new VideoPreview($"Movies/Demonstration/{DateTime.Now:yyyyMMdd_HHmmss}.mp4");
+        // When the video finished then show a message
+        video_preview.Closed += (sender, video_directory) =>
+        {
+            DisplayAlert("Alert", $"Video saved in {video_directory}", "OK");
+        };
+        await Navigation.PushModalAsync(video_preview);
     }
 
+    private void Button_Open_Borescope(object sender, EventArgs e)
+    {
+        _ = DisplayAlert("Alert", "There is no borescope compatible connected", "OK");
+        //BorescopePlugin.IBorescope borescope = BorescopePlugin.Instance.Get_Borescope();
+        //borescope.Start_HoWiFi(async (sender, image_source) =>
+        //{
+        //    //Delete previous images, this is necessary for some reason
+        //    image_preview.Source = null;
+        //    // Update image
+        //    image_preview.Source = image_source;
+
+        //    // Check if crop is enabled
+        //    if (enable_crop)
+        //    {
+        //        new ImageCropper.Maui.ImageCropper()
+        //        {
+        //            Success = (image_file) =>
+        //            {
+        //                Dispatcher.Dispatch(async () =>
+        //                {
+        //                    image_preview.Source = ImageSource.FromFile(image_file);
+        //                    // Saving image
+        //                    if (enable_save)
+        //                    {
+        //                        // Creating the directory
+        //                        var directory = "Pictures/Demonstration/";
+        //                        directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
+        //                        //Saving the image
+        //                        var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
+        //                        if (result == "sucess")
+        //                        {
+        //                            await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
+        //                        }
+        //                        else
+        //                        {
+        //                            await DisplayAlert("Error", result, "OK");
+        //                        }
+        //                    }
+        //                });
+        //            }
+        //        }.Crop_Image(image_source);
+        //    }
+        //    // Only check if save is enabled
+        //    else
+        //    {
+        //        // Saving image
+        //        if (enable_save)
+        //        {
+        //            // Creating the directory
+        //            var directory = "Pictures/Demonstration/";
+        //            directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
+        //            //Saving the image
+        //            var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
+        //            if (result == "sucess")
+        //            {
+        //                await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
+        //            }
+        //            else
+        //            {
+        //                await DisplayAlert("Error", result, "OK");
+        //            }
+        //        }
+        //    }
+        //});
+    }
 }

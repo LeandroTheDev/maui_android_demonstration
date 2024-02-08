@@ -1,15 +1,20 @@
+using SkiaSharp;
+using System.Numerics;
+
 namespace Android_Native_Demonstration.Components;
 
 public partial class CameraPreview : ContentPage
 {
     private int Camera_Position = 0;
     private bool Camera_Busy = false;
-    private string Image_Description = "Template";
+    private Vector3 Accelerator;
     public event EventHandler<ImageSource> Closed;
-    public CameraPreview()
+    public CameraPreview(string description)
     {
         InitializeComponent();
-        Description.Text = Image_Description;
+        Description.Text = description;
+        Accelerometer.ReadingChanged += On_Device_Moviment;
+        Accelerometer.Start(SensorSpeed.UI);
     }
 
     private void Camera_View_Load(object sender, EventArgs e)
@@ -28,12 +33,24 @@ public partial class CameraPreview : ContentPage
         //Stream Creation
         Stream stream = await cameraView.TakePhotoAsync();
 
-        //Image throught the stream
-        ImageSource imageSource = ImageSource.FromStream(() => stream);
+        //Getting ImageSource
+        ImageSource image_source = ImageSource.FromStream(() => stream);
+
+        //if (Accelerator[0] > 0.8)
+        //{
+        //    //Flipping image to left
+        //    image_source = await Rotate(image_source);
+        //}
+        //else if (Accelerator[0] > -0.8)
+        //{
+        //    //Flipping image to right
+        //    image_source = ImageSource.FromStream(() => stream);
+        //}
+
 
         //Send image throught pop
         await Navigation.PopModalAsync();
-        Closed?.Invoke(this, imageSource);
+        Closed?.Invoke(this, image_source);
     }
 
     private void Camera_Flashlight_Switch(object sender, EventArgs e)
@@ -76,15 +93,28 @@ public partial class CameraPreview : ContentPage
         }
     }
 
+    private void Camera_Close(object sender, EventArgs e)
+    {
+        Navigation.PopModalAsync();
+    }
+
+    private void On_Device_Moviment(object sender, AccelerometerChangedEventArgs e)
+    {
+        Accelerator = e.Reading.Acceleration;
+        Console.WriteLine(Accelerator.ToString());
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        // Desactivating the Device Moviment Detector
+        Accelerometer.Stop();
+    }
+
     private async Task Camera_Busy_Delay(int ticks)
     {
         Camera_Busy = true;
         await Task.Delay(ticks);
         Camera_Busy = false;
-    }
-
-    private void Camera_Close(object sender, EventArgs e)
-    {
-        Navigation.PopModalAsync();
     }
 }

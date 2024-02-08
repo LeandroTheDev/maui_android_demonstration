@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage    Title="VideoPreview"
+                Shell.NavBarIsVisible="False"
+                Shell.TabBarIsVisible="False"
+                xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+                x:Class="Android_Native_Demonstration.Components.VideoPreview">
+    <Grid>
+        <!--Defining the Camera for use all the screen-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--Camera View-->
+        <cv:CameraView x:Name="cameraView" CamerasLoaded="Camera_View_Load" />
+
+        <!--Start-->
+        <Grid Margin="0,10,0,0">
+            <!--Distribute the Buttons-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <!--Close Camera-->
+            <Button Grid.Column="0" Text="" Clicked="Camera_Close"
+                BackgroundColor="Red"
+                CornerRadius="100"
+                VerticalOptions="Start" HorizontalOptions="Start"
+                Margin="10,0,10,0"
+                HeightRequest="50"
+                WidthRequest="50"/>
+            <!--Description-->
+            <Label Grid.Column="1" x:Name="Description"
+                FontSize="Large" Margin="0,7,10,00"
+                VerticalOptions="Start" HorizontalOptions="End"/>
+        </Grid>
+
+        <!--End-->
+        <Grid Margin="0,0,0,50">
+            <!--Distribute the Elements-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Flash-->
+            <Button Grid.Column="0" Text="" Clicked="Camera_Flashlight_Switch"
+                BackgroundColor="White" TextColor="White"
+                CornerRadius="100"
+                VerticalOptions="End" HorizontalOptions="Start"
+                Margin="30,0,0,10"
+                HeightRequest="60"
+                WidthRequest="60"/>
+            <!--Take Photo-->
+            <Button Grid.Column="1" Text="" Clicked="Camera_StartStop_Recording"
+                BackgroundColor="White" TextColor="White"
+                CornerRadius="100"
+                VerticalOptions="End" HorizontalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"/>
+            <!--Switch Camera-->
+            <Button Grid.Column="2" Text="" Clicked="Camera_Position_Switch"
+                BackgroundColor="White" TextColor="White"
+                CornerRadius="100"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,30,10"
+                HeightRequest="60"
+                WidthRequest="60"/>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -13,7 +13,7 @@ namespace ImageCropper.Maui
         public void Instanciate_Image_Cropper(MauiAppCompatActivity activity)
         {
             DependencyService.Register<IImageCropperWrapper, PlatformImageCropper>();
-            AppActivity = activity;;
+            AppActivity = activity;
             ImageCropperActivityResultLauncher = activity.RegisterForActivityResult(new CropImageContract(), this);
         }
 

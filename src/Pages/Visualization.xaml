@@ -30,6 +30,8 @@
                 <!--Checkbox-->
                 <CheckBox CheckedChanged="Enable_Save"/>
             </HorizontalStackLayout>
+            <!--Custom Video Button-->
+            <Button Text="Custom Video" Margin="20" Clicked="Button_Open_Custom_Video"></Button>
             <!--Borescope Button-->
             <Button Text="Borescope" Margin="20" Clicked="Button_Open_Borescope"></Button>
             <!--Generic Preview-->

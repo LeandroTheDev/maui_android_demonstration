@@ -11,7 +11,13 @@ public class MainActivity : MauiAppCompatActivity
     protected override void OnCreate(Bundle savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
+        // Enabling only Portrait Orientation
+        RequestedOrientation = ScreenOrientation.Portrait;
         // ImageCropper Plugin
         new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
+
+        //Borescope Plugin
+        AndroidActivity.MainActivity.Generate_Interface(); //Generate Interfaces for Android
+        BorescopePlugin.Instance.Generate_Borescope(this); //Generate Borescope
     }
 }

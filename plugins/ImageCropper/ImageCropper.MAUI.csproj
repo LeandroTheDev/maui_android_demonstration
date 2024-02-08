@@ -24,6 +24,7 @@
           <PackagePath>\</PackagePath>
       </None>
   </ItemGroup>
+</ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
     <PackageReference Include="Com.Vanniktech.AndroidImageCropper.Maui">
