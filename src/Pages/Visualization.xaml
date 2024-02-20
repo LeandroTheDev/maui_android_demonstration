@@ -32,8 +32,8 @@
             </HorizontalStackLayout>
             <!--Custom Video Button-->
             <Button Text="Custom Video" Margin="20" Clicked="Button_Open_Custom_Video"></Button>
-            <!--Borescope Button-->
-            <Button Text="Borescope" Margin="20" Clicked="Button_Open_Borescope"></Button>
+            <!--Notification Button-->
+            <Button Text="Notification" Margin="20" Clicked="Button_Open_Notification"></Button>
             <!--Generic Preview-->
             <Image x:Name="image_preview" HeightRequest="100" WidthRequest="100"/>
 

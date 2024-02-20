@@ -1,4 +1,5 @@
 ﻿using Camera.MAUI;
+using Plugin.LocalNotification;
 
 namespace Android_Native_Demonstration;
 
@@ -25,6 +26,8 @@ public static class Init
                 .UseMauiApp<App>()
                 // Camera Plugin
                 .UseMauiCameraView()
+                // Notification Plugin
+                .UseLocalNotification()
                 // Fonts Declaration
                 .ConfigureFonts(fonts =>
                 {

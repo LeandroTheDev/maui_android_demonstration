@@ -1,4 +1,3 @@
-using SkiaSharp;
 using System.Numerics;
 
 namespace Android_Native_Demonstration.Components;
@@ -9,6 +8,10 @@ public partial class CameraPreview : ContentPage
     private bool Camera_Busy = false;
     private Vector3 Accelerator;
     public event EventHandler<ImageSource> Closed;
+    /// <summary>
+    /// If image is busy the temporary image cannot be deleted in dispose
+    /// </summary>
+    private bool Temp_Busy = false;
     public CameraPreview(string description)
     {
         InitializeComponent();
@@ -30,27 +33,71 @@ public partial class CameraPreview : ContentPage
 
     private async void Camera_Take_Photo(object sender, EventArgs e)
     {
+        //Save image in a temporary storage and returns the image path
+        static async Task<string> Save_Temporary_Image(ImageSource image_source)
+        {
+            // Creating the directory
+            var directory = "Pictures/Demonstration/";
+            directory += "temp.png";
+            //Removing old temps
+            var result = Utils.Storage.Remove_File(directory);
+            if (result == "success" || result == "no_file_found")
+            {
+                Console.WriteLine($"[File] removed: {result}");
+                //Saving the image and returning
+                return await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
+            }
+            else
+            {
+                throw new Exception($"Error while removing temporary image: {result}");
+            }
+        }
+
+        //Rotate the image depending on the accelerator
+        static void Rotate_Image(string directory, string orientation)
+        {
+#if ANDROID
+            var orientation_tag = 1;
+            switch (orientation)
+            {
+                case "left": orientation_tag = 2; break;
+                case "right": orientation_tag = 4; break;
+            }
+            Android.Media.ExifInterface exifInterface = new(directory);
+            exifInterface.SetAttribute(Android.Media.ExifInterface.TagOrientation, orientation_tag.ToString());
+            exifInterface.SaveAttributes();
+            Console.Write($"[File] Image rotated to {orientation} in {directory}");
+#else
+            throw new Exception("Cannot rotate image, system operational not suported");
+#endif
+        }
+
         //Stream Creation
         Stream stream = await cameraView.TakePhotoAsync();
 
         //Getting ImageSource
         ImageSource image_source = ImageSource.FromStream(() => stream);
 
-        //if (Accelerator[0] > 0.8)
-        //{
-        //    //Flipping image to left
-        //    image_source = await Rotate(image_source);
-        //}
-        //else if (Accelerator[0] > -0.8)
-        //{
-        //    //Flipping image to right
-        //    image_source = ImageSource.FromStream(() => stream);
-        //}
+        //Saving temporary image
+        Temp_Busy = true;
+        var temp_directory = await Save_Temporary_Image(image_source);
+
+        if (Accelerator[0] > 0.8)
+        {
+            //Flipping image to left
+            Rotate_Image(temp_directory, "left");
+        }
+        else if (Accelerator[0] < -0.8)
+        {
+            //Flipping image to right
+            Rotate_Image(temp_directory, "right");
+        }
 
 
         //Send image throught pop
         await Navigation.PopModalAsync();
-        Closed?.Invoke(this, image_source);
+        Closed?.Invoke(this, ImageSource.FromFile(temp_directory));
+        Temp_Busy = false;
     }
 
     private void Camera_Flashlight_Switch(object sender, EventArgs e)
@@ -101,7 +148,6 @@ public partial class CameraPreview : ContentPage
     private void On_Device_Moviment(object sender, AccelerometerChangedEventArgs e)
     {
         Accelerator = e.Reading.Acceleration;
-        Console.WriteLine(Accelerator.ToString());
     }
 
     protected override void OnDisappearing()
@@ -109,6 +155,19 @@ public partial class CameraPreview : ContentPage
         base.OnDisappearing();
         // Desactivating the Device Moviment Detector
         Accelerometer.Stop();
+        //Removing old temps
+        Task.Delay(1000).ContinueWith((task) =>
+        {
+            if (!Temp_Busy)
+            {
+                Utils.Storage.Remove_File("Pictures/Demonstration/temp.png");
+                Console.WriteLine("[File] Temporary image has been deleted");
+            } else
+            {
+                Console.WriteLine("[File] Temporary image cannot be deleted, the image is busy");
+
+            }
+        });
     }
 
     private async Task Camera_Busy_Delay(int ticks)

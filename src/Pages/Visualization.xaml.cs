@@ -1,4 +1,5 @@
 using Android_Native_Demonstration.Components;
+using Plugin.LocalNotification;
 
 namespace Android_Native_Demonstration.Pages;
 
@@ -41,14 +42,14 @@ public partial class Visualization : ContentPage
                                     var directory = "Pictures/Demonstration/";
                                     directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
                                     //Saving the image
-                                    var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
-                                    if (result == "sucess")
+                                    try
                                     {
+                                        var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
                                         await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
                                     }
-                                    else
+                                    catch (Exception ex)
                                     {
-                                        await DisplayAlert("Error", result, "OK");
+                                        await DisplayAlert("Error", ex.ToString(), "OK");
                                     }
                                 }
                             });
@@ -65,18 +66,17 @@ public partial class Visualization : ContentPage
                         var directory = "Pictures/Demonstration/";
                         directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
                         //Saving the image
-                        var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
-                        if (result == "sucess")
+                        try
                         {
+                            var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
                             await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            await DisplayAlert("Error", result, "OK");
+                            await DisplayAlert("Error", ex.ToString(), "OK");
                         }
                     }
                 }
-
             }
         }
         catch (FeatureNotSupportedException)
@@ -123,14 +123,14 @@ public partial class Visualization : ContentPage
                                 var directory = "Pictures/Demonstration/";
                                 directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
                                 //Saving the image
-                                var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
-                                if (result == "sucess")
+                                try
                                 {
+                                    var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
                                     await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    await DisplayAlert("Error", result, "OK");
+                                    await DisplayAlert("Error", ex.ToString(), "OK");
                                 }
                             }
                         });
@@ -147,14 +147,14 @@ public partial class Visualization : ContentPage
                     var directory = "Pictures/Demonstration/";
                     directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
                     //Saving the image
-                    var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
-                    if (result == "sucess")
+                    try
                     {
+                        var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
                         await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await DisplayAlert("Error", result, "OK");
+                        await DisplayAlert("Error", ex.ToString(), "OK");
                     }
                 }
             }
@@ -183,7 +183,7 @@ public partial class Visualization : ContentPage
             // If not granted display error
             else
             {
-                await DisplayAlert("Error", "Cannot enable the save mod, Permission Denied", "OK");
+                await DisplayAlert("Error", "Cannot enable the save, Permission Denied", "OK");
                 ((CheckBox)sender).IsChecked = false;
                 enable_save = false;
             }
@@ -205,69 +205,22 @@ public partial class Visualization : ContentPage
         await Navigation.PushModalAsync(video_preview);
     }
 
-    private void Button_Open_Borescope(object sender, EventArgs e)
+    private void Button_Open_Notification(object sender, EventArgs e)
     {
-        _ = DisplayAlert("Alert", "There is no borescope compatible connected", "OK");
-        //BorescopePlugin.IBorescope borescope = BorescopePlugin.Instance.Get_Borescope();
-        //borescope.Start_HoWiFi(async (sender, image_source) =>
-        //{
-        //    //Delete previous images, this is necessary for some reason
-        //    image_preview.Source = null;
-        //    // Update image
-        //    image_preview.Source = image_source;
-
-        //    // Check if crop is enabled
-        //    if (enable_crop)
-        //    {
-        //        new ImageCropper.Maui.ImageCropper()
-        //        {
-        //            Success = (image_file) =>
-        //            {
-        //                Dispatcher.Dispatch(async () =>
-        //                {
-        //                    image_preview.Source = ImageSource.FromFile(image_file);
-        //                    // Saving image
-        //                    if (enable_save)
-        //                    {
-        //                        // Creating the directory
-        //                        var directory = "Pictures/Demonstration/";
-        //                        directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
-        //                        //Saving the image
-        //                        var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_file);
-        //                        if (result == "sucess")
-        //                        {
-        //                            await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
-        //                        }
-        //                        else
-        //                        {
-        //                            await DisplayAlert("Error", result, "OK");
-        //                        }
-        //                    }
-        //                });
-        //            }
-        //        }.Crop_Image(image_source);
-        //    }
-        //    // Only check if save is enabled
-        //    else
-        //    {
-        //        // Saving image
-        //        if (enable_save)
-        //        {
-        //            // Creating the directory
-        //            var directory = "Pictures/Demonstration/";
-        //            directory += $"{DateTime.Now:yyyyMMdd_HHmmss}.png";
-        //            //Saving the image
-        //            var result = await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
-        //            if (result == "sucess")
-        //            {
-        //                await DisplayAlert("Alert", "Sucessfully saved the photo in storage", "OK");
-        //            }
-        //            else
-        //            {
-        //                await DisplayAlert("Error", result, "OK");
-        //            }
-        //        }
-        //    }
-        //});
+        var request = new NotificationRequest
+        {
+            NotificationId = 1,
+            Title = "Notification Test",
+            Subtitle = "Subtitle Test",
+            Description = "Description Test",
+            BadgeNumber = 42,
+            CategoryType = NotificationCategoryType.Event,
+            Schedule = new NotificationRequestSchedule
+            {
+                NotifyTime = DateTime.Now.AddSeconds(5),
+            },
+        };
+        LocalNotificationCenter.Current.Show(request);
     }
+
 }
