@@ -4,8 +4,17 @@ namespace Android_Native_Demonstration.Components;
 
 public partial class CameraPreview : ContentPage
 {
+    /// <summary>
+    /// The actual position from the camera, 0 = back, 1 = frontal
+    /// </summary>
     private int Camera_Position = 0;
+    /// <summary>
+    /// If camera is busy then you cannot perform camera actions
+    /// </summary>
     private bool Camera_Busy = false;
+    /// <summary>
+    /// Controller for device orientation
+    /// </summary>
     private Vector3 Accelerator;
     public event EventHandler<ImageSource> Closed;
     /// <summary>
@@ -33,29 +42,31 @@ public partial class CameraPreview : ContentPage
 
     private async void Camera_Take_Photo(object sender, EventArgs e)
     {
-        //Save image in a temporary storage and returns the image path
-        static async Task<string> Save_Temporary_Image(ImageSource image_source)
+        try
         {
-            // Creating the directory
-            var directory = "Pictures/Demonstration/";
-            directory += "temp.png";
-            //Removing old temps
-            var result = Utils.Storage.Remove_File(directory);
-            if (result == "success" || result == "no_file_found")
+            //Save image in a temporary storage and returns the image path
+            static async Task<string> Save_Temporary_Image(ImageSource image_source)
             {
-                Console.WriteLine($"[File] removed: {result}");
-                //Saving the image and returning
-                return await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
+                // Creating the directory
+                var directory = "Pictures/Demonstration/";
+                directory += "temp.png";
+                //Removing old temps
+                var result = Utils.Storage.Remove_File(directory);
+                if (result == "success" || result == "no_file_found")
+                {
+                    Console.WriteLine($"[File] removed: {result}");
+                    //Saving the image and returning
+                    return await Utils.Storage.Save_ImageSource_To_Directory(directory, image_source);
+                }
+                else
+                {
+                    throw new Exception($"Error while removing temporary image: {result}");
+                }
             }
-            else
-            {
-                throw new Exception($"Error while removing temporary image: {result}");
-            }
-        }
 
-        //Rotate the image depending on the accelerator
-        static void Rotate_Image(string directory, string orientation)
-        {
+            //Rotate the image depending on the accelerator
+            static void Rotate_Image(string directory, string orientation)
+            {
 #if ANDROID
             var orientation_tag = 1;
             switch (orientation)
@@ -68,36 +79,39 @@ public partial class CameraPreview : ContentPage
             exifInterface.SaveAttributes();
             Console.Write($"[File] Image rotated to {orientation} in {directory}");
 #else
-            throw new Exception("Cannot rotate image, system operational not suported");
+                throw new Exception("Cannot rotate image, system operational not suported");
 #endif
-        }
+            }
 
-        //Stream Creation
-        Stream stream = await cameraView.TakePhotoAsync();
+            //Stream Creation
+            Stream stream = await cameraView.TakePhotoAsync();
 
-        //Getting ImageSource
-        ImageSource image_source = ImageSource.FromStream(() => stream);
+            //Getting ImageSource
+            ImageSource image_source = ImageSource.FromStream(() => stream);
 
-        //Saving temporary image
-        Temp_Busy = true;
-        var temp_directory = await Save_Temporary_Image(image_source);
+            //Saving temporary image
+            Temp_Busy = true;
+            var temp_directory = await Save_Temporary_Image(image_source);
 
-        if (Accelerator[0] > 0.8)
+            if (Accelerator[0] > 0.8)
+            {
+                //Flipping image to left
+                Rotate_Image(temp_directory, "left");
+            }
+            else if (Accelerator[0] < -0.8)
+            {
+                //Flipping image to right
+                Rotate_Image(temp_directory, "right");
+            }
+
+            //Send image throught pop
+            await Navigation.PopModalAsync();
+            Closed?.Invoke(this, ImageSource.FromFile(temp_directory));
+            Temp_Busy = false;
+        } catch (Exception ex)
         {
-            //Flipping image to left
-            Rotate_Image(temp_directory, "left");
+            await DisplayAlert("Error", $"Cannot take the photo: {ex.Message}", "OK");
         }
-        else if (Accelerator[0] < -0.8)
-        {
-            //Flipping image to right
-            Rotate_Image(temp_directory, "right");
-        }
-
-
-        //Send image throught pop
-        await Navigation.PopModalAsync();
-        Closed?.Invoke(this, ImageSource.FromFile(temp_directory));
-        Temp_Busy = false;
     }
 
     private void Camera_Flashlight_Switch(object sender, EventArgs e)

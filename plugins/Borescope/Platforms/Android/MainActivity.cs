@@ -4,7 +4,7 @@ using Android.Graphics;
 using BorescopePlugin;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace AndroidActivity;
+namespace BorescopePlugin.MAUI;
 public class MainActivity : IBorescope
 {
     private MauiAppCompatActivity app_activity;
@@ -15,7 +15,7 @@ public class MainActivity : IBorescope
     private HoWiFi.CmdSocket howifi_socket;
     private event EventHandler<ImageSource> howifi_callback;
 
-    static public void Generate_Interface()
+    static public void Generate_Borescope_Interface()
     {
         Console.WriteLine("[Borescope Interface] Registering the Borescope Interface");
         DependencyService.Register<IBorescope, MainActivity>();

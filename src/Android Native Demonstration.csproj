@@ -52,6 +52,7 @@
 	<ItemGroup>
 		<PackageReference Include="Borescope.MAUI" Version="3.8.0" />
 		<PackageReference Include="Camera.MAUI" Version="1.5.0" />
+		<PackageReference Include="DeviceOrientation.MAUI" Version="1.0.0" />
 		<PackageReference Include="ImageCropper.MAUI" Version="1.0.5" />
 		<PackageReference Include="LocalNotification" Version="10.1.8" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />

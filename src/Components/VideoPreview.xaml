@@ -53,21 +53,24 @@
                 Margin="30,0,0,10"
                 HeightRequest="60"
                 WidthRequest="60"/>
-            <!--Take Photo-->
-            <Button Grid.Column="1" Text="" Clicked="Camera_StartStop_Recording"
-                BackgroundColor="White" TextColor="White"
-                CornerRadius="100"
-                VerticalOptions="End" HorizontalOptions="Center"
-                HeightRequest="80"
-                WidthRequest="80"/>
-            <!--Switch Camera-->
-            <Button Grid.Column="2" Text="" Clicked="Camera_Position_Switch"
-                BackgroundColor="White" TextColor="White"
-                CornerRadius="100"
-                VerticalOptions="End" HorizontalOptions="End"
-                Margin="0,0,30,10"
-                HeightRequest="60"
-                WidthRequest="60"/>
+            <VerticalStackLayout Grid.Column="2" 
+                VerticalOptions="End" 
+                HorizontalOptions="End"
+                Margin="0,0,30,10">
+                <!--Switch Camera-->
+                <Button Text="" Clicked="Camera_Position_Switch"
+                    BackgroundColor="White" TextColor="White"
+                    CornerRadius="100"
+                    Margin="0,0,0,30"
+                    HeightRequest="60"
+                    WidthRequest="60"/>
+                <!--Take Photo-->
+                <Button Text="" Clicked="Camera_StartStop_Recording"
+                    BackgroundColor="White" TextColor="White"
+                    CornerRadius="100"
+                    HeightRequest="80"
+                    WidthRequest="80"/>
+            </VerticalStackLayout>
         </Grid>
     </Grid>
 </ContentPage>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>DeviceOrientation.MAUI</id>
+    <version>1.0.0</version>
+    <authors>DeviceOrientation.MAUI</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="200ad840ba3e2e8d1ffcaffae9e5b3ad8c5c4f68" />
+    <dependencies>
+      <group targetFramework="net7.0" />
+      <group targetFramework="net7.0-android33.0" />
+      <group targetFramework="net7.0-ios16.1" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\DeviceOrientation.MAUI\bin\Release\net7.0\DeviceOrientation.MAUI.dll" target="lib\net7.0\DeviceOrientation.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\DeviceOrientation.MAUI\bin\Release\net7.0-android\DeviceOrientation.MAUI.dll" target="lib\net7.0-android33.0\DeviceOrientation.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\DeviceOrientation.MAUI\bin\Release\net7.0-android\DeviceOrientation.MAUI.xml" target="lib\net7.0-android33.0\DeviceOrientation.MAUI.xml" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\DeviceOrientation.MAUI\bin\Release\net7.0-ios\DeviceOrientation.MAUI.dll" target="lib\net7.0-ios16.1\DeviceOrientation.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Android Native Demonstration\plugins\DeviceOrientation.MAUI\bin\Release\net7.0-android\DeviceOrientation.MAUI.aar" target="lib\net7.0-android33.0\DeviceOrientation.MAUI.aar" />
+  </files>
+</package>

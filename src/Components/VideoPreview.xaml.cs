@@ -10,8 +10,12 @@ public partial class VideoPreview : ContentPage
     private string Save_Video_Directory;
     private string Video_Description = "Template";
     public event EventHandler<string> Closed;
+
+    private readonly DeviceOrientation.MAUI.IOrientator orientator = DeviceOrientation.MAUI.Orientator.Get_Orientator();
     public VideoPreview(string directory)
     {
+        //Make orientation to landscape
+        orientator.Set_Orientation("landscape");
         InitializeComponent();
         Description.Text = Video_Description;
         Save_Video_Directory = directory;
@@ -38,7 +42,8 @@ public partial class VideoPreview : ContentPage
             Playing = true;
             PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageWrite>();
             //Permission Treatment
-            if (status != PermissionStatus.Granted) {
+            if (status != PermissionStatus.Granted)
+            {
                 await DisplayAlert("Error", "Permission denied for saving the file", "OK");
                 Playing = false;
                 return;
@@ -106,5 +111,12 @@ public partial class VideoPreview : ContentPage
     private void Camera_Close(object sender, EventArgs e)
     {
         Navigation.PopModalAsync();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        //Reset orientation to portrait
+        orientator.Set_Orientation("portrait");
     }
 }
