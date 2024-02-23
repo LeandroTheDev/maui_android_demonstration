@@ -1,47 +1,34 @@
 ﻿using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.iOSOption;
 using Plugin.LocalNotification.Json;
-using System;
-using System.Collections.Generic;
 
 namespace Plugin.LocalNotification
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class LocalNotificationBuilder : ILocalNotificationBuilder
     {
         /// <summary>
         /// Register notification categories and their corresponding actions
         /// </summary>
-        public HashSet<NotificationCategory> CategorySet { get; private set; }
+        internal HashSet<NotificationCategory> CategorySet { get; } = new ();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
-        public INotificationSerializer Serializer { get; private set; }
-
-        /// <summary>
-        /// Android specific Builder.
-        /// </summary>
-        public AndroidLocalNotificationBuilder AndroidBuilder { get; private set; }
+        internal INotificationSerializer Serializer { get; private set; } = new NotificationSerializer();
 
         /// <summary>
         /// Android specific Builder.
         /// </summary>
-        public iOSLocalNotificationBuilder IOSBuilder { get; private set; }
+        internal AndroidLocalNotificationBuilder AndroidBuilder { get; } = new();
 
         /// <summary>
-        /// 
+        /// Android specific Builder.
         /// </summary>
-        public LocalNotificationBuilder()
-        {
-            AndroidBuilder = new AndroidLocalNotificationBuilder();
-            IOSBuilder = new iOSLocalNotificationBuilder();
-            CategorySet = new HashSet<NotificationCategory>();
-            Serializer = new NotificationSerializer();
-        }
-
+        internal iOSLocalNotificationBuilder IOSBuilder { get; } = new();
+                
         /// <inheritdoc/>
         public ILocalNotificationBuilder AddAndroid(Action<IAndroidLocalNotificationBuilder> android)
         {

@@ -1,6 +1,4 @@
-﻿using Foundation;
-using Plugin.LocalNotification.EventArgs;
-using System;
+﻿using Plugin.LocalNotification.EventArgs;
 using System.Globalization;
 using UIKit;
 using UserNotifications;
@@ -22,7 +20,7 @@ namespace Plugin.LocalNotification.Platforms
                 }
 
                 var notificationService = TryGetDefaultIOsNotificationService();
-                var notificationRequest = notificationService.GetRequest(response.Notification.Request.Content);
+                var notificationRequest = LocalNotificationCenter.GetRequest(response.Notification.Request.Content);
 
                 // if notificationRequest is null this maybe not a notification from this plugin.
                 if (notificationRequest is null)
@@ -35,12 +33,24 @@ namespace Plugin.LocalNotification.Platforms
 
                 if (response.Notification.Request.Content.Badge != null)
                 {
-                    UIApplication.SharedApplication.InvokeOnMainThread(() =>
+                    var badgeNumber = Convert.ToInt32(response.Notification.Request.Content.Badge.ToString(), CultureInfo.CurrentCulture);
+
+                    center.InvokeOnMainThread(() =>
                     {
-                        var appBadges = UIApplication.SharedApplication.ApplicationIconBadgeNumber -
-                                        Convert.ToInt32(response.Notification.Request.Content.Badge.ToString(),
-                                            CultureInfo.CurrentCulture);
-                        UIApplication.SharedApplication.ApplicationIconBadgeNumber = appBadges;
+                        if (UIDevice.CurrentDevice.CheckSystemVersion(16, 0))
+                        {
+                            center.SetBadgeCount(badgeNumber, (error) =>
+                            {
+                                if (error != null)
+                                {
+                                    LocalNotificationCenter.Log(error.LocalizedDescription);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            UIApplication.SharedApplication.ApplicationIconBadgeNumber -= badgeNumber;
+                        }
                     });
                 }
 
@@ -99,7 +109,7 @@ namespace Plugin.LocalNotification.Platforms
                 var presentationOptions = UNNotificationPresentationOptions.None;
 
                 var notificationService = TryGetDefaultIOsNotificationService();
-                var notificationRequest = notificationService.GetRequest(notification?.Request.Content);
+                var notificationRequest = LocalNotificationCenter.GetRequest(notification?.Request.Content);
 
                 // if notificationRequest is null this maybe not a notification from this plugin.
                 if (notificationRequest is null)
@@ -137,13 +147,7 @@ namespace Plugin.LocalNotification.Platforms
 
                 if (requestHandled == false)
                 {
-                    if (
-#if XAMARINIOS
-                        UIDevice.CurrentDevice.CheckSystemVersion(14, 0)
-#elif IOS
-                        OperatingSystem.IsIOSVersionAtLeast(14)
-#endif
-                        )
+                    if (OperatingSystem.IsIOSVersionAtLeast(14))
                     {
                         if (notificationRequest.iOS.PresentAsBanner)
                         {
@@ -190,10 +194,10 @@ namespace Plugin.LocalNotification.Platforms
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
-        public static NotificationServiceImpl TryGetDefaultIOsNotificationService()
+        internal static NotificationServiceImpl TryGetDefaultIOsNotificationService()
         {
             return LocalNotificationCenter.Current is NotificationServiceImpl notificationService
                 ? notificationService

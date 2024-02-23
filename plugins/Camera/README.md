@@ -4,6 +4,8 @@
 ### Adding to your project
 - dotnet add package Camera.MAUI --source ..\plugins\Camera\bin\Release\
 
+[This plugin is forked from Camera.MAUI](https://github.com/hjam40/Camera.MAUI)
+
 ### Install and configure CameraView
 
 1. Download and Install [Camera.MAUI](https://www.nuget.org/packages/Camera.MAUI) NuGet package on your application.

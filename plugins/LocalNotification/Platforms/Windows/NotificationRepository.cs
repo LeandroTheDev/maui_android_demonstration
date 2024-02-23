@@ -1,5 +1,4 @@
-﻿using Android.Content;
-using Application = Android.App.Application;
+﻿using Windows.Storage;
 
 namespace Plugin.LocalNotification.Platforms
 {
@@ -11,7 +10,7 @@ namespace Plugin.LocalNotification.Platforms
         private static readonly Lazy<NotificationRepository> MySingleton =
             new(() => new NotificationRepository(), LazyThreadSafetyMode.PublicationOnly);
 
-        private static readonly object Locker = new();
+        private static readonly object Locker = new ();
 
         /// <summary>
         ///
@@ -21,21 +20,17 @@ namespace Plugin.LocalNotification.Platforms
         /// <summary>
         ///
         /// </summary>
-        private const string PendingListKey = "PendingList";
+        private const string PendingListKey = $"{nameof(NotificationRepository)}PendingList";
 
         /// <summary>
         ///
         /// </summary>
-        private const string DeliveredListKey = "DeliveredList";
+        private const string DeliveredListKey = $"{nameof(NotificationRepository)}DeliveredList";
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <returns></returns>
-        private static ISharedPreferences? GetSharedPreferences()
+        static ApplicationDataContainer GetApplicationDataContainer()
         {
-            const string sharedName = "plugin.LocalNotification." + nameof(NotificationRepository);
-            return Application.Context.GetSharedPreferences(sharedName, FileCreationMode.Private);
+            var localSettings = ApplicationData.Current.LocalSettings;
+            return localSettings;
         }
 
         /// <summary>
@@ -55,7 +50,7 @@ namespace Plugin.LocalNotification.Platforms
         /// <param name="request"></param>
         internal void AddPendingRequest(NotificationRequest request)
         {
-            var itemList = GetPendingList();
+            var itemList = GetPendingList();            
             itemList.RemoveAll(r => request.NotificationId == r.NotificationId);
             itemList.RemoveAll(r =>
                 r.Schedule.NotifyTime.HasValue &&
@@ -99,7 +94,7 @@ namespace Plugin.LocalNotification.Platforms
         internal void RemoveByDeliveredIdList(params int[] notificationIdList)
         {
             var itemList = GetDeliveredList();
-            itemList.RemoveAll(r => notificationIdList.Contains(r.NotificationId));
+            itemList?.RemoveAll(r => notificationIdList.Contains(r.NotificationId));
             SetDeliveredList(itemList);
         }
 
@@ -137,11 +132,15 @@ namespace Plugin.LocalNotification.Platforms
         {
             lock (Locker)
             {
-                using var sharedPreferences = GetSharedPreferences();
-                var jsonText = sharedPreferences?.GetString(key, string.Empty);
+                var appDataContainer = GetApplicationDataContainer();
+                var jsonText = string.Empty;
+                if (appDataContainer.Values.TryGetValue(key, out var data))
+                {
+                    jsonText = data.ToString();
+                }
                 return string.IsNullOrWhiteSpace(jsonText)
                     ? []
-                    : LocalNotificationCenter.GetRequestList(jsonText);
+                    : LocalNotificationCenter.GetRequestList(jsonText) ?? [];
             }
         }
 
@@ -149,15 +148,21 @@ namespace Plugin.LocalNotification.Platforms
         {
             lock (Locker)
             {
-                using var sharedPreferences = GetSharedPreferences();
-                using var editor = sharedPreferences?.Edit();
+                var appDataContainer = GetApplicationDataContainer();
                 var jsonText = string.Empty;
                 if (list != null && list.Any())
                 {
                     jsonText = LocalNotificationCenter.GetRequestListSerialize(list);
                 }
-                editor?.PutString(key, jsonText);
-                editor?.Apply();
+
+                if (appDataContainer.Values.ContainsKey(key))
+                {
+                    appDataContainer.Values[key] = jsonText;
+                }
+                else
+                {
+                    appDataContainer.Values.Add(key, jsonText);
+                }
             }
         }
     }

@@ -1,12 +1,5 @@
-﻿#if NET6_0_OR_GREATER
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Maui.ApplicationModel;
-using Microsoft.Maui.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Maui.LifecycleEvents;
-using System;
-using System.Linq;
-#endif
 
 namespace Plugin.LocalNotification
 {
@@ -15,14 +8,13 @@ namespace Plugin.LocalNotification
     /// </summary>
     public static class LocalNotificationExtensions
     {
-#if NET6_0_OR_GREATER
         /// <summary>
         ///
         /// </summary>
         /// <param name="builder"></param>
         /// <param name="configureDelegate"></param>
         /// <returns></returns>
-        public static MauiAppBuilder UseLocalNotification(this MauiAppBuilder builder, Action<ILocalNotificationBuilder> configureDelegate = null)
+        public static MauiAppBuilder UseLocalNotification(this MauiAppBuilder builder, Action<ILocalNotificationBuilder>? configureDelegate = null)
         {
             var localNotificationBuilder = new LocalNotificationBuilder();
             configureDelegate?.Invoke(localNotificationBuilder);
@@ -36,25 +28,15 @@ namespace Plugin.LocalNotification
 #if ANDROID
                 life.AddAndroid(android =>
                 {
-                    android.OnCreate((activity, savedInstanceState) =>
+                    android.OnCreate((activity, _) =>
                     {
-                        if (localNotificationBuilder.AndroidBuilder.ChannelRequestList.Any())
-                        {
-                            foreach (var channelRequest in localNotificationBuilder.AndroidBuilder.ChannelRequestList)
-                            {
-                                LocalNotificationCenter.CreateNotificationChannel(channelRequest);
-                            }
-                        }
-                        if (localNotificationBuilder.AndroidBuilder.GroupChannelRequestList.Any())
-                        {
-                            foreach (var groupChannelReques in localNotificationBuilder.AndroidBuilder.GroupChannelRequestList)
-                            {
-                                LocalNotificationCenter.CreateNotificationChannelGroup(groupChannelReques);
-                            }
-                        }
+                        LocalNotificationCenter.CreateNotificationChannelGroups(localNotificationBuilder.AndroidBuilder.GroupChannelRequestList);
+
+                        LocalNotificationCenter.CreateNotificationChannels(localNotificationBuilder.AndroidBuilder.ChannelRequestList);                        
+
                         LocalNotificationCenter.NotifyNotificationTapped(activity.Intent);
                     })
-                    .OnNewIntent((activity, intent) =>
+                    .OnNewIntent((_, intent) =>
                     {
                         LocalNotificationCenter.NotifyNotificationTapped(intent);
                     });
@@ -64,7 +46,7 @@ namespace Plugin.LocalNotification
                 {
                     iOS.FinishedLaunching((application, _) =>
                     {
-                        LocalNotificationCenter.SetUserNotificationCenterDelegate(localNotificationBuilder.IOSBuilder.CustomUserNotificationCenterDelegate);                        
+                        LocalNotificationCenter.SetUserNotificationCenterDelegate(localNotificationBuilder.IOSBuilder.CustomUserNotificationCenterDelegate);
                         return true;
                     });
                     iOS.WillEnterForeground(application =>
@@ -72,11 +54,18 @@ namespace Plugin.LocalNotification
                         LocalNotificationCenter.ResetApplicationIconBadgeNumber(application);
                     });
                 });
+#elif WINDOWS
+                life.AddWindows(windows =>
+                {
+                    windows.OnActivated((window, args) =>
+                    {
+                        LocalNotificationCenter.SetupBackgroundActivation();
+                    });
+                });
 #endif
             });
 
             return builder;
         }
-#endif
     }
 }

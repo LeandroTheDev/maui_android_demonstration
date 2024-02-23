@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Plugin.LocalNotification.EventArgs;
+﻿using Plugin.LocalNotification.EventArgs;
 
 namespace Plugin.LocalNotification
 {
@@ -11,20 +8,25 @@ namespace Plugin.LocalNotification
     public interface INotificationService
     {
         /// <summary>
+        /// Gets a value indicating whether local notification is supported on this device.
+        /// </summary>
+        bool IsSupported { get; }
+
+        /// <summary>
         /// fires when notification popup action is tapped.
         /// </summary>
-        event NotificationActionTappedEventHandler NotificationActionTapped;
+        event NotificationActionTappedEventHandler? NotificationActionTapped;
 
         /// <summary>
         /// fires when notification is received.
         /// On iOS this event is fired only when the app is in foreground
         /// </summary>
-        event NotificationReceivedEventHandler NotificationReceived;
+        event NotificationReceivedEventHandler? NotificationReceived;
 
         /// <summary>
         /// fires when notification is disabled.
         /// </summary>
-        event NotificationDisabledEventHandler NotificationsDisabled;
+        event NotificationDisabledEventHandler? NotificationsDisabled;
 
         /// <summary>
         /// Cancel a notification match with the Id
@@ -67,6 +69,11 @@ namespace Plugin.LocalNotification
         void OnNotificationReceived(NotificationEventArgs e);
 
         /// <summary>
+        /// Internal use Only
+        /// </summary>
+        void OnNotificationsDisabled();
+
+        /// <summary>
         /// Get pending notifications
         /// </summary>
         /// <returns></returns>
@@ -86,7 +93,7 @@ namespace Plugin.LocalNotification
         /// <summary>
         /// When Notification is about to be shown, this allow it to be modified.
         /// </summary>
-        Func<NotificationRequest, Task<NotificationEventReceivingArgs>> NotificationReceiving { get; set; }
+        Func<NotificationRequest, Task<NotificationEventReceivingArgs>>? NotificationReceiving { get; set; }
 
         /// <summary>
         /// Returns whether user as allowed Notifications
@@ -96,8 +103,10 @@ namespace Plugin.LocalNotification
 
         /// <summary>
         /// Request Notification Permission
+        /// Ask the user for permission to show notifications on iOS 10.0+ and Android 33+.
+        /// Returns true if Allowed.
         /// </summary>
         /// <returns></returns>
-        Task<bool> RequestNotificationPermission(NotificationPermission permission = null);
+        Task<bool> RequestNotificationPermission(NotificationPermission? permission = null);
     }
 }

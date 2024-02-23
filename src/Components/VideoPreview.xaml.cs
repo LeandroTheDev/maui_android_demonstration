@@ -8,7 +8,7 @@ public partial class VideoPreview : ContentPage
     private bool Camera_Busy = false;
     private bool Playing = false;
     private string Save_Video_Directory;
-    private string Video_Description = "Template";
+    private readonly string Video_Description = "Template";
     public event EventHandler<string> Closed;
 
     private readonly DeviceOrientation.MAUI.IOrientator orientator = DeviceOrientation.MAUI.Orientator.Get_Orientator();

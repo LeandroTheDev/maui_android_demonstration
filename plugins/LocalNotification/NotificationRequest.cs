@@ -1,6 +1,6 @@
 ﻿using Plugin.LocalNotification.AndroidOption;
 using Plugin.LocalNotification.iOSOption;
-using System.Threading.Tasks;
+using Plugin.LocalNotification.WindowsOption;
 
 namespace Plugin.LocalNotification
 {
@@ -9,11 +9,6 @@ namespace Plugin.LocalNotification
     /// </summary>
     public class NotificationRequest
     {
-        /// <summary>
-        /// Android specific properties.
-        /// </summary>
-        public AndroidOptions Android { get; set; } = new();
-
         /// <summary>
         /// Number of the badge displays on the Home Screen.
         /// </summary>
@@ -33,7 +28,7 @@ namespace Plugin.LocalNotification
         /// Set this notification to be part of a group of notifications sharing the same key.
         /// Grouped notifications may display in a cluster or stack on devices which support such rendering.
         /// </summary>
-        public string Group { get; set; }
+        public string Group { get; set; } = string.Empty;
 
         /// <summary>
         /// Image for notification.
@@ -41,9 +36,19 @@ namespace Plugin.LocalNotification
         public NotificationImage Image { get; set; } = new NotificationImage();
 
         /// <summary>
+        /// Android specific properties.
+        /// </summary>
+        public AndroidOptions Android { get; set; } = new();
+
+        /// <summary>
         /// iOS specific properties.
         /// </summary>
         public iOSOptions iOS { get; set; } = new();
+
+        /// <summary>
+        /// Windows specific properties.
+        /// </summary>
+        public WindowsOptions Windows { get; set; } = new();
 
         /// <summary>
         /// A unique identifier for the request

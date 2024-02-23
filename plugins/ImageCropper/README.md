@@ -4,6 +4,8 @@
 ### Adding to your project
 - dotnet add package ImageCropper.MAUI --source ..\plugins\ImageCropper\bin\Release\
 
+[This plugin is forked from ImageCropper.MAUI](https://github.com/jbowmanp1107/ImageCropper.Maui)
+
 ### Android
 
 In AndroidManifest.xml

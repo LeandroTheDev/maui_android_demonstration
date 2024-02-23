@@ -1,9 +1,7 @@
 ﻿using Plugin.LocalNotification.Json;
-using System;
-using System.Collections.Generic;
-using System.Threading;
 using Microsoft.Extensions.Logging;
-#if ANDROID || IOS || MONOANDROID || XAMARINIOS
+
+#if ANDROID || IOS || WINDOWS
 using Plugin.LocalNotification.Platforms;
 #endif
 
@@ -15,12 +13,12 @@ namespace Plugin.LocalNotification
 
     public partial class LocalNotificationCenter
     {
-        private static readonly Lazy<INotificationService> implementation = new(() => CreateNotificationService(), LazyThreadSafetyMode.PublicationOnly);
-        private static INotificationSerializer _serializer;
+        private static readonly Lazy<INotificationService> implementation = new(CreateNotificationService, LazyThreadSafetyMode.PublicationOnly);
+        private static INotificationSerializer? _serializer;
 
         private static INotificationService CreateNotificationService()
         {
-#if ANDROID || IOS || MONOANDROID || XAMARINIOS
+#if ANDROID || IOS || WINDOWS
             return new NotificationServiceImpl();
 #else
             return null;
@@ -30,7 +28,7 @@ namespace Plugin.LocalNotification
         /// <summary>
         /// Internal  Logger
         /// </summary>
-        public static ILogger Logger { get; set; }
+        internal static ILogger? Logger { get; set; }
 
         /// <summary>
         /// Internal  Logger LogLevel
@@ -40,14 +38,7 @@ namespace Plugin.LocalNotification
         /// <summary>
         /// Platform specific INotificationService.
         /// </summary>
-        public static INotificationService Current
-        {
-            get
-            {
-                var ret = implementation.Value;
-                return ret ?? throw new NotImplementedException(Properties.Resources.PluginNotFound);
-            }
-        }
+        public static INotificationService Current => implementation.Value;
 
         /// <summary>
         /// Return Notification Key.
@@ -67,7 +58,7 @@ namespace Plugin.LocalNotification
         /// <summary>
         ///
         /// </summary>
-        public static INotificationSerializer Serializer
+        internal static INotificationSerializer Serializer
         {
             get
             {
@@ -77,27 +68,27 @@ namespace Plugin.LocalNotification
             set => _serializer = value;
         }
 
-        internal static NotificationRequest GetRequest(string serializedRequest)
+        internal static NotificationRequest GetRequest(string? serializedRequest)
         {
             Logger?.LogTrace($"Serialized Request [{serializedRequest}]");
             if (string.IsNullOrWhiteSpace(serializedRequest))
             {
-                return null;
+                return new NotificationRequest();
             }
 
             var request = Serializer.Deserialize<NotificationRequest>(serializedRequest);
-            return request;
+            return request ?? new NotificationRequest();
         }
 
-        internal static List<NotificationRequest> GetRequestList(string serializedRequestList)
+        internal static List<NotificationRequest> GetRequestList(string? serializedRequestList)
         {
             if (string.IsNullOrWhiteSpace(serializedRequestList))
             {
-                return new List<NotificationRequest>();
+                return [];
             }
 
             var requestList = Serializer.Deserialize<List<NotificationRequest>>(serializedRequestList);
-            return requestList;
+            return requestList ?? [];
         }
 
         internal static string GetRequestListSerialize(List<NotificationRequest> requestList)
@@ -106,7 +97,7 @@ namespace Plugin.LocalNotification
             {
                 if (request.Image.Binary != null && request.Image.Binary.Length > 90000)
                 {
-                    request.Image.Binary = null;
+                    request.Image.Binary = [];
                 }
             }
             var serializedRequestList = Serializer.Serialize(requestList);
@@ -117,7 +108,7 @@ namespace Plugin.LocalNotification
         {
             if (request.Image.Binary != null && request.Image.Binary.Length > 90000)
             {
-                request.Image.Binary = null;
+                request.Image.Binary = [];
             }
             var serializedRequest = Serializer.Serialize(request);
 

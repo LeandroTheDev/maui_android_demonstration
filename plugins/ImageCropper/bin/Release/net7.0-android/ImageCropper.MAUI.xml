@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<doc>
-    <assembly>
-        <name>ImageCropper.MAUI</name>
-    </assembly>
-    <members>
-        <!-- Badly formed XML comment ignored for member "M:ImageCropper.Maui.ImageCropper.Crop_Image(Microsoft.Maui.Controls.ImageSource,System.String)" -->
-    </members>
-</doc>

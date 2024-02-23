@@ -34,6 +34,8 @@
             <Button Text="Custom Video" Margin="20" Clicked="Button_Open_Custom_Video"></Button>
             <!--Notification Button-->
             <Button Text="Notification" Margin="20" Clicked="Button_Open_Notification"></Button>
+            <!--GPS Button-->
+            <Button Text="GPS" Margin="20" Clicked="Button_Get_Location"></Button>
             <!--Generic Preview-->
             <Image x:Name="image_preview" HeightRequest="100" WidthRequest="100"/>
 

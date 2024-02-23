@@ -205,22 +205,40 @@ public partial class Visualization : ContentPage
         await Navigation.PushModalAsync(video_preview);
     }
 
-    private void Button_Open_Notification(object sender, EventArgs e)
+    private async void Button_Open_Notification(object sender, EventArgs e)
     {
-        var request = new NotificationRequest
+        if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
         {
-            NotificationId = 1,
-            Title = "Notification Test",
-            Subtitle = "Subtitle Test",
-            Description = "Description Test",
-            BadgeNumber = 42,
-            CategoryType = NotificationCategoryType.Event,
-            Schedule = new NotificationRequestSchedule
-            {
-                NotifyTime = DateTime.Now.AddSeconds(5),
-            },
+            await LocalNotificationCenter.Current.RequestNotificationPermission();
+        }
+
+        var notification = new NotificationRequest
+        {
+            NotificationId = 100,
+            Title = "Test",
+            Description = "Test Description",
+            ReturningData = "Dummy data",
+            //Schedule = { NotifyTime = DateTime.Now.AddSeconds(30) }
         };
-        LocalNotificationCenter.Current.Show(request);
+        await LocalNotificationCenter.Current.Show(notification);
     }
 
+    async private void Button_Get_Location(object sender, EventArgs e)
+    {
+        try
+        {
+            //Request
+            GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
+            Location location = await Geolocation.Default.GetLocationAsync(request, new CancellationTokenSource().Token);
+
+            if (location != null)
+                await DisplayAlert("Alert", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "OK");
+            else
+                await DisplayAlert("Error", "GPS does not retrieve any location", "OK");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"GPS returned a error {ex.Message}", "OK");
+        }
+    }
 }

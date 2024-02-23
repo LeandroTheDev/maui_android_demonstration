@@ -53,8 +53,10 @@
                 Margin="30,0,0,10"
                 HeightRequest="60"
                 WidthRequest="60"/>
+            
+            <!--Switch, Start Recording-->
             <VerticalStackLayout Grid.Column="2" 
-                VerticalOptions="End" 
+                VerticalOptions="End"
                 HorizontalOptions="End"
                 Margin="0,0,30,10">
                 <!--Switch Camera-->
@@ -64,7 +66,7 @@
                     Margin="0,0,0,30"
                     HeightRequest="60"
                     WidthRequest="60"/>
-                <!--Take Photo-->
+                <!--Start Recording-->
                 <Button Text="" Clicked="Camera_StartStop_Recording"
                     BackgroundColor="White" TextColor="White"
                     CornerRadius="100"
