@@ -1,0 +1,14 @@
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-windows10.0.19041.0\Camera.MAUI.deps.json
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-windows10.0.19041.0\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-windows10.0.19041.0\Camera.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.csproj.AssemblyReference.cache
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.AssemblyInfoInputs.cache
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.AssemblyInfo.cs
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.csproj.CoreCompileInputs.cache
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.sourcelink.json
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\XamlC.stamp
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\refint\Camera.MAUI.dll
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\Camera.MAUI.pdb
+C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\obj\Release\net8.0-windows10.0.19041.0\ref\Camera.MAUI.dll

@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>ImageCropper.MAUI</id>
+    <version>1.0.6</version>
+    <authors>ImageCropper.MAUI</authors>
+    <projectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</projectUrl>
+    <description>Package Description</description>
+    <repository type="git" url="https://github.com/LeandroTheDev/android_native_demonstration/tree/main" commit="01284eee712bf593bf15c8fb77d6c8ca72e9d2de" />
+    <dependencies>
+      <group targetFramework="net8.0-android34.0">
+        <dependency id="Com.Vanniktech.AndroidImageCropper.Maui" version="4.4.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0-ios17.2">
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="TimOliver.TOCropViewController.Maui" version="2.3.6" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\ImageCropper.MAUI\bin\Release\net8.0-android\ImageCropper.MAUI.dll" target="lib\net8.0-android34.0\ImageCropper.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\ImageCropper.MAUI\bin\Release\net8.0-android\ImageCropper.MAUI.xml" target="lib\net8.0-android34.0\ImageCropper.MAUI.xml" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\ImageCropper.MAUI\bin\Release\net8.0-ios\ImageCropper.MAUI.dll" target="lib\net8.0-ios17.2\ImageCropper.MAUI.dll" />
+  </files>
+</package>

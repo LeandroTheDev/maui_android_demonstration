@@ -17,8 +17,8 @@ public class MainActivity : MauiAppCompatActivity
         new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
 
         //Borescope Plugin
-        AndroidActivity.MainActivity.Generate_Interface(); //Generate Interfaces for Borescope
-        BorescopePlugin.Instance.Generate_Borescope(this); //Generate Borescope
+        BorescopePlugin.MAUI.MainActivity.Generate_Borescope_Interface(); // Generating Interface
+        BorescopePlugin.Instance.Generate_Borescope(this); //Generate Borescope Activity
 
         //Orientator Plugin
         DeviceOrientation.MAUI.MainActivity.Generate_Orientator_Interface(); //Generate Interfaces for Device Orientation

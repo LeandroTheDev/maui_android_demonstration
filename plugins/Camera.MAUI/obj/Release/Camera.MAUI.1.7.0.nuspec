@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Camera.MAUI</id>
+    <version>1.7.0</version>
+    <title>Camera pluging for .NET MAUI Apps</title>
+    <authors>LeandroTheDev</authors>
+    <projectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</projectUrl>
+    <description>A Camera View control for .NET MAUI applications.</description>
+    <tags>csharp dotnet cross-platform camera cameraview codebar qr qr-decoder codebar-encoder codebar-decoder camera-component camera-view plugin maui dotnet-maui</tags>
+    <repository type="git" url="https://github.com/LeandroTheDev/android_native_demonstration/tree/main" commit="01284eee712bf593bf15c8fb77d6c8ca72e9d2de" />
+    <dependencies>
+      <group targetFramework="net8.0-android34.0">
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0-ios17.2">
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0-maccatalyst17.2">
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net8.0-windows10.0.19041">
+        <dependency id="Microsoft.Maui.Controls" version="8.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Maui.Controls.Compatibility" version="8.0.6" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-android\Camera.MAUI.dll" target="lib\net8.0-android34.0\Camera.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-android\Camera.MAUI.xml" target="lib\net8.0-android34.0\Camera.MAUI.xml" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-ios\Camera.MAUI.dll" target="lib\net8.0-ios17.2\Camera.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-maccatalyst\Camera.MAUI.dll" target="lib\net8.0-maccatalyst17.2\Camera.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Camera.MAUI\bin\Release\net8.0-windows10.0.19041.0\Camera.MAUI.dll" target="lib\net8.0-windows10.0.19041\Camera.MAUI.dll" />
+    <file src="C:\Users\leandro.schmidt\source\repos\Maui Android Demonstration\plugins\Readme.md" target="\Readme.md" />
+  </files>
+</package>

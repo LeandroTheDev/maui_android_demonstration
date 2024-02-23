@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeviceOrientation.MAUI", "DeviceOrientation.MAUI.csproj", "{68C2E2EC-F208-40C0-860C-7671F5FFA3D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68C2E2EC-F208-40C0-860C-7671F5FFA3D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68C2E2EC-F208-40C0-860C-7671F5FFA3D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68C2E2EC-F208-40C0-860C-7671F5FFA3D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68C2E2EC-F208-40C0-860C-7671F5FFA3D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BCD1F212-D568-48CA-B7C4-96D25D1C91E4}
+	EndGlobalSection
+EndGlobal
