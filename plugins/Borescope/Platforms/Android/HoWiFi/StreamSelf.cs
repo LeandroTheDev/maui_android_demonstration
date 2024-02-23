@@ -1,10 +1,8 @@
 using Android.Content;
 using Android.Graphics;
-using Android.OS;
 using Android.Util;
-using AndroidActivity;
+using BorescopePlugin.MAUI;
 using CommunityToolkit.Mvvm.Messaging;
-using Java.IO;
 using Java.Lang;
 using Java.Util.Concurrent;
 using static Android.Graphics.Bitmap;

@@ -8,23 +8,15 @@
         <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
         <Title>ImageCropper.Maui</Title>
-        <Copyright>2022</Copyright>
-        <PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>
-        <PackageReadmeFile>Readme.md</PackageReadmeFile>
-        <PackageTags>maui;image cropping;image cropper;xamarin;cropper;cropping;image;photo;rotate</PackageTags>
+        
+        <PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
+		    <RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
+		    <RepositoryType>git</RepositoryType>
+        
         <Description>.NET MAUI plugin to crop and rotate photos.</Description>
-        <RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
-        <Version>1.0.5</Version>
+        <Version>1.0.6</Version>
 		<IncludeLicenseInPackage>false</IncludeLicenseInPackage>
 	</PropertyGroup>
-
-  <ItemGroup>
-      <None Include="..\README.md">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-      </None>
-  </ItemGroup>
-</ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
     <PackageReference Include="Com.Vanniktech.AndroidImageCropper.Maui">

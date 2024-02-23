@@ -1,6 +1,6 @@
 ﻿# Device Orientation for MAUI
 ### Compiling
-- dotnet pack -c Release
+- dotnet build -c Release
 ### Adding to your project
 - dotnet add package DeviceOrientation.MAUI --source ..\plugins\DeviceOrientation\bin\Release\
 

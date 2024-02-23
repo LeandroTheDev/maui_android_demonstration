@@ -14,8 +14,12 @@
 		<Product>$(AssemblyName) ($(TargetFramework))</Product>
 		<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
+		<RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 		
-		
+		<Version>2.0</Version>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>

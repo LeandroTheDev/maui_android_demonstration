@@ -1,6 +1,6 @@
 ﻿# Compiling and using the plugin
 ### Compiling
--  dotnet pack -c Release
+-  dotnet build -c Release
 ### Adding to your project
 - dotnet add package Camera.MAUI --source ..\plugins\Camera\bin\Release\
 

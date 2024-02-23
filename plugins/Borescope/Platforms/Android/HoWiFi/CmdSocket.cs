@@ -1,4 +1,4 @@
-using AndroidActivity;
+using BorescopePlugin.MAUI;
 using CommunityToolkit.Mvvm.Messaging;
 using Java.Lang;
 using Thread = Java.Lang.Thread;
