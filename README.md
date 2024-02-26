@@ -18,4 +18,4 @@ A application made with MAUI demonstrating the possibilities of native functions
 - dotnet add package Borescope.MAUI --source ..\plugins\Borescope.MAUI\bin\Release\
 
 ### Android Compile
-- dotnet build -f net7.0-android -c Release
+- dotnet build -f net8.0-android -c Release
