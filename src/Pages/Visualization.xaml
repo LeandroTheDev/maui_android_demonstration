@@ -36,6 +36,10 @@
             <Button Text="Notification" Margin="20" Clicked="Button_Open_Notification"></Button>
             <!--GPS Button-->
             <Button Text="GPS" Margin="20" Clicked="Button_Get_Location"></Button>
+            <!--Facial Recognition Register Button-->
+            <Button Text="Facial Recognition Register" Margin="20" Clicked="Button_Facial_Register_Recognition"></Button>
+            <!--Facial Recognition Analyze Button-->
+            <Button Text="Facial Recognition Analyze" Margin="20" Clicked="Button_Facial_Analyze_Recognition"></Button>
             <!--Generic Preview-->
             <Image x:Name="image_preview" HeightRequest="100" WidthRequest="100"/>
 

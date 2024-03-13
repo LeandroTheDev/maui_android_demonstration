@@ -15,7 +15,7 @@ public partial class Visualization : ContentPage
         enable_save = false;
     }
 
-    private async void Button_Open_Camera(object sender, EventArgs e)
+    private async void Button_Open_Camera(object? sender, EventArgs e)
     {
         try
         {
@@ -96,7 +96,7 @@ public partial class Visualization : ContentPage
         }
     }
 
-    private async void Button_Open_Custom_Camera(object sender, EventArgs e)
+    private async void Button_Open_Custom_Camera(object? sender, EventArgs e)
     {
         var cameraPreview = new CameraPreview("Template");
         cameraPreview.Closed += async (sender, image_source) =>
@@ -162,12 +162,12 @@ public partial class Visualization : ContentPage
         await Navigation.PushModalAsync(cameraPreview);
     }
 
-    private void Enable_Crop(object sender, CheckedChangedEventArgs e)
+    private void Enable_Crop(object? sender, CheckedChangedEventArgs e)
     {
         enable_crop = e.Value;
     }
 
-    private async void Enable_Save(object sender, CheckedChangedEventArgs e)
+    private async void Enable_Save(object? sender, CheckedChangedEventArgs e)
     {
         if (e.Value)
         {
@@ -194,7 +194,7 @@ public partial class Visualization : ContentPage
         }
     }
 
-    private async void Button_Open_Custom_Video(object sender, EventArgs e)
+    private async void Button_Open_Custom_Video(object? sender, EventArgs e)
     {
         var video_preview = new VideoPreview($"Movies/Demonstration/{DateTime.Now:yyyyMMdd_HHmmss}.mp4");
         // When the video finished then show a message
@@ -205,7 +205,7 @@ public partial class Visualization : ContentPage
         await Navigation.PushModalAsync(video_preview);
     }
 
-    private async void Button_Open_Notification(object sender, EventArgs e)
+    private async void Button_Open_Notification(object? sender, EventArgs e)
     {
         if (await LocalNotificationCenter.Current.AreNotificationsEnabled() == false)
         {
@@ -223,14 +223,13 @@ public partial class Visualization : ContentPage
         await LocalNotificationCenter.Current.Show(notification);
     }
 
-    async private void Button_Get_Location(object sender, EventArgs e)
+    async private void Button_Get_Location(object? sender, EventArgs e)
     {
         try
         {
             //Request
             GeolocationRequest request = new(GeolocationAccuracy.Best, TimeSpan.FromSeconds(10));
-            Location location = await Geolocation.Default.GetLocationAsync(request, new CancellationTokenSource().Token);
-
+            var location = await Geolocation.Default.GetLocationAsync(request, new CancellationTokenSource().Token);
             if (location != null)
                 await DisplayAlert("Alert", $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}", "OK");
             else
@@ -240,5 +239,17 @@ public partial class Visualization : ContentPage
         {
             await DisplayAlert("Error", $"GPS returned a error {ex.Message}", "OK");
         }
+    }
+    
+    private void Button_Facial_Register_Recognition(object? sender, EventArgs e)
+    {
+        var facial = FacialRecognition.MAUI.Facial.GetFacialRecognition();
+        facial.RegisterNewImage(Navigation);
+    }
+
+    private void Button_Facial_Analyze_Recognition(object? sender, EventArgs e)
+    {
+        var facial = FacialRecognition.MAUI.Facial.GetFacialRecognition();
+        facial.PerformAnalyze(Navigation);
     }
 }

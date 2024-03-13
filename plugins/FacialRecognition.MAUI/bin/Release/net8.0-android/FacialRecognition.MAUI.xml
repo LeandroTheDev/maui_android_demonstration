@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FacialRecognition.MAUI</name>
+    </assembly>
+    <members>
+        <member name="F:FacialRecognition.MAUI.Platforms.Android.CameraActivity.facialRecognitionInstance">
+            <summary>
+            Instance for the FacialRecognition SDK
+            </summary>
+        </member>
+        <member name="E:FacialRecognition.MAUI.Platforms.Android.CameraActivity.Closed">
+            <summary>
+            Returns true if Recognition is the same from registred and false if not the same
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.MainActivity.RegisterNewImage(Microsoft.Maui.Controls.INavigation)">
+            <summary>
+            Ask for photo and register the new image to be used in Facial Recognition
+            </summary>
+            <param name="Navigation"></param>
+            <returns></returns>
+            <exception cref="T:Java.Lang.NullPointerException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.MainActivity.RegisterFromData(System.Byte[])">
+            <summary>
+            Register the data to recognize images manually
+            </summary>
+            <param name="data"></param>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.MainActivity.PerformAnalyze(Microsoft.Maui.Controls.INavigation)">
+            <summary>
+            Asks for a photo them
+            performs analyze to verify the face integrity
+            of the 2 images, the registred one and the taked photo
+            </summary>
+            <param name="Navigation"></param>
+            <returns></returns>
+            <exception cref="T:Java.Lang.NullPointerException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.AndroidInterface.GenerateFacialRecognitionInterface">
+            <summary>
+            Creates the facial recognition interfaces for android devices
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.RequestCameraPermission">
+            <summary>
+            Request Permission camera permission
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.HasCameraPermission">
+            <summary>
+            Simple check if the device has camera permission
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

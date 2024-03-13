@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FacialRecognition.MAUI</name>
+    </assembly>
+    <members>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.RequestCameraPermission">
+            <summary>
+            Request Permission camera permission
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.HasCameraPermission">
+            <summary>
+            Simple check if the device has camera permission
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

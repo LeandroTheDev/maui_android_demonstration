@@ -20,8 +20,8 @@
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>Camera pluging for .NET MAUI Apps</Title>
 		<Description>A Camera View control for .NET MAUI applications.</Description>
-		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
-		<RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>csharp; dotnet; cross-platform; camera; cameraview; codebar; qr; qr-decoder; codebar-encoder; codebar-decoder; camera-component; camera-view;  plugin; maui; dotnet-maui;</PackageTags>
 		<Authors>LeandroTheDev</Authors>		

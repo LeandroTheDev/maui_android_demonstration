@@ -8,8 +8,6 @@
 
 ### Install and configure CameraView
 
-1. Download and Install [Camera.MAUI](https://www.nuget.org/packages/Camera.MAUI) NuGet package on your application.
-
 1. Initialize the plugin in your `MauiProgram.cs`:
 
     ```csharp

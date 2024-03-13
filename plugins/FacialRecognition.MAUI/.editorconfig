@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS8622: A nulidade de tipos de referência no tipo de parâmetro não corresponde ao delegado de destino (possivelmente devido a atributos de nulidade).
+dotnet_diagnostic.CS8622.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = none

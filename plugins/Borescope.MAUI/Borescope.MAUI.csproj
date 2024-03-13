@@ -8,11 +8,12 @@
 		<Nullable>enable</Nullable>
 		<Version>4.1</Version>
 
-		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
-		<RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>		
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -23,11 +24,4 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
-
-	<!-- ANDROID NATIVE LIBRARY DECLARATION-->
-  <ItemGroup>
-    <EmbeddedNativeLibrary Include="Platforms/Android/Resources/lib/arm64-v8a/libmlcamera-2.5.so"/>
-    <EmbeddedNativeLibrary Include="Platforms/Android/Resources/lib/armeabi-v7a/libmlcamera-2.5.so"/>
-  </ItemGroup>
-
 </Project>

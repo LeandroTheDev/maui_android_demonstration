@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+             x:Class="FacialRecognition.MAUI.Platforms.Android.CameraActivity"
+             Title="CameraActivity">
+    <Grid>
+        <!--Defining the Camera for use all the screen-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--Camera View-->
+        <cv:CameraView x:Name="cameraView"/>
+
+        <!--Start Butons-->
+        <Grid Margin="0,10,0,0">
+            <!--Distribute the Buttons-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <!--Close Camera-->
+            <Button Grid.Column="0" Text="" x:Name="closeFacial"
+                BackgroundColor="Red"
+                CornerRadius="100"
+                VerticalOptions="Start" HorizontalOptions="Start"
+                Margin="10,0,10,0"
+                HeightRequest="50"
+                WidthRequest="50"/>
+        </Grid>
+
+        <!--End-->
+        <Grid Margin="0,0,0,50">
+            <!--Distribute the Elements-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <!--Spacer-->
+            <Label Grid.Column="0"/>
+            
+            <!--Take Photo-->
+            <Button Grid.Column="1" Text="" x:Name="takePhoto"
+                BackgroundColor="White" TextColor="White"
+                CornerRadius="100"
+                VerticalOptions="End" HorizontalOptions="Center"
+                HeightRequest="80"
+                WidthRequest="80"/>
+            <!--Switch Camera-->
+            <Button Grid.Column="2" Text="" x:Name="switchCameras"
+                BackgroundColor="White" TextColor="White"
+                CornerRadius="100"
+                VerticalOptions="End" HorizontalOptions="End"
+                Margin="0,0,30,10"
+                HeightRequest="60"
+                WidthRequest="60"/>
+        </Grid>
+    </Grid>
+</ContentPage>

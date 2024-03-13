@@ -29,7 +29,7 @@ public partial class CameraPreview : ContentPage
         Accelerometer.Start(SensorSpeed.UI);
     }
 
-    private void Camera_View_Load(object sender, EventArgs e)
+    private void Camera_View_Load(object? sender, EventArgs e)
     {
         // Starting in Frontal Camera
         cameraView.Camera = cameraView.Cameras[0];
@@ -40,7 +40,7 @@ public partial class CameraPreview : ContentPage
         });
     }
 
-    private async void Camera_Take_Photo(object sender, EventArgs e)
+    private async void Camera_Take_Photo(object? sender, EventArgs e)
     {
         try
         {
@@ -114,7 +114,7 @@ public partial class CameraPreview : ContentPage
         }
     }
 
-    private void Camera_Flashlight_Switch(object sender, EventArgs e)
+    private void Camera_Flashlight_Switch(object? sender, EventArgs e)
     {
         //Verifiy if is not frontal side and not busy
         if (Camera_Position == 0 && !Camera_Busy)
@@ -123,7 +123,7 @@ public partial class CameraPreview : ContentPage
         }
     }
 
-    private void Camera_Position_Switch(object sender, EventArgs e)
+    private void Camera_Position_Switch(object? sender, EventArgs e)
     {
         //Stop function if camera is busy
         if (Camera_Busy)
@@ -154,12 +154,12 @@ public partial class CameraPreview : ContentPage
         }
     }
 
-    private void Camera_Close(object sender, EventArgs e)
+    private void Camera_Close(object? sender, EventArgs e)
     {
         Navigation.PopModalAsync();
     }
 
-    private void On_Device_Moviment(object sender, AccelerometerChangedEventArgs e)
+    private void On_Device_Moviment(object? sender, AccelerometerChangedEventArgs e)
     {
         Accelerator = e.Reading.Acceleration;
     }

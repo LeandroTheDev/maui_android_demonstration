@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.leandrothedev.android_native_demonstration" android:versionCode="1" android:versionName="1.0">
 	<application android:allowBackup="true" android:supportsRtl="true" android:label="Android Native Demonstration" android:screenOrientation="portrait" android:icon="@mipmap/appicon">
-		<!--Enabling ImageCropper Theme-->
+		<!--Enabling Native ImageCropper-->
 		<activity android:name="com.canhub.cropper.CropImageActivity" android:theme="@style/Base.Theme.AppCompat" />
+		<!--Enabling Native Facial Recognition-->
+		<activity android:name="com.leandrothedev.android_native_demonstration.CameraActivity" android:theme="@style/Base.Theme.AppCompat"/>
 	</application>
 	<!--Device Connection-->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

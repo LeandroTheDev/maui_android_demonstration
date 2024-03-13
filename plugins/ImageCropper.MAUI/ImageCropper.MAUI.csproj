@@ -7,9 +7,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
-	    <RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
-	    <RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>

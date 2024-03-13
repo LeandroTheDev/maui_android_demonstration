@@ -13,9 +13,9 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <Authors>Elvin (Tharindu) Thudugala</Authors>
     <PackageTags>dotnet;android;ios;local;notification;local.notification;maui</PackageTags>
-    <PackageProjectUrl>https://github.com/thudugala/Plugin.LocalNotification</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/thudugala/Plugin.LocalNotification</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Description>The local notification plugin provides a way to show local notifications from MAUI apps.</Description>

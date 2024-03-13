@@ -7,8 +7,8 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
-		<PackageProjectUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</PackageProjectUrl>		
-		<RepositoryUrl>https://github.com/LeandroTheDev/android_native_demonstration/tree/main</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 
 		<Version>2.0</Version>

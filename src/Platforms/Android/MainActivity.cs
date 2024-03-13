@@ -13,6 +13,7 @@ public class MainActivity : MauiAppCompatActivity
         base.OnCreate(savedInstanceState);
         // Enabling only Portrait Orientation
         RequestedOrientation = ScreenOrientation.Portrait;
+
         // ImageCropper Plugin
         new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
 
@@ -22,5 +23,8 @@ public class MainActivity : MauiAppCompatActivity
 
         //Orientator Plugin
         DeviceOrientation.MAUI.MainActivity.Generate_Orientator_Interface(); //Generate Interfaces for Device Orientation
+
+        //Facial Recognition Plugin
+        FacialRecognition.MAUI.Platforms.Android.AndroidInterface.GenerateFacialRecognitionInterface(); //Generate Interfaces for Facial Recognition
     }
 }

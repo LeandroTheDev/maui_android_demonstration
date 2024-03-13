@@ -6,7 +6,10 @@ plugins/Borescope.MAUI/obj
 plugins/Camera.MAUI/obj
 plugins/ImageCropper.MAUI/obj
 plugins/LocalNotification.MAUI/obj
+plugins/FacialRecognition.MAUI/obj
 plugins/Borescope.MAUI/.vs
 plugins/Camera.MAUI/.vs
 plugins/ImageCropper.MAUI/.vs
 plugins/LocalNotification.MAUI/.vs
+plugins/FacialRecognition.MAUI/.vs
+plugins/FacialRecognition.MAUI/ttvface.aar
