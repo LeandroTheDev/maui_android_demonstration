@@ -1,4 +1,4 @@
-# Android Native Demonstrations
+# Maui Android Demonstration
 
 A application made with MAUI demonstrating the possibilities of native functions in android like: 
 - Photo.
