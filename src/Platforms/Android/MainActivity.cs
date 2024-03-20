@@ -8,23 +8,20 @@ namespace Android_Native_Demonstration;
 public class MainActivity : MauiAppCompatActivity
 {
     // Instanciating activitys for plugins
-    protected override void OnCreate(Bundle savedInstanceState)
+    protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
-        // Enabling only Portrait Orientation
-        RequestedOrientation = ScreenOrientation.Portrait;
 
         // ImageCropper Plugin
-        new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
+        new ImageCropper.MAUI.Platforms.Android.Platform().InstanciateImageCropper(this);
 
-        //Borescope Plugin
-        BorescopePlugin.MAUI.MainActivity.Generate_Borescope_Interface(); // Generating Interface
-        BorescopePlugin.Instance.Generate_Borescope(this); //Generate Borescope Activity
+        // Borescope Plugin
+        //BorescopePlugin.MAUI.Platforms.Android.Interface.Generate();
 
         //Orientator Plugin
-        DeviceOrientation.MAUI.MainActivity.Generate_Orientator_Interface(); //Generate Interfaces for Device Orientation
+        DeviceOrientation.MAUI.Platforms.Android.Interface.Generate(this);
 
         //Facial Recognition Plugin
-        FacialRecognition.MAUI.Platforms.Android.AndroidInterface.GenerateFacialRecognitionInterface(); //Generate Interfaces for Facial Recognition
+        FacialRecognition.MAUI.Platforms.Android.Interface.GenerateFacialRecognitionInterface();
     }
 }

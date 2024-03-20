@@ -1,4 +1,4 @@
-﻿namespace ImageCropper.Maui
+﻿namespace ImageCropper.MAUI
 {
     public interface IImageCropperWrapper
     {

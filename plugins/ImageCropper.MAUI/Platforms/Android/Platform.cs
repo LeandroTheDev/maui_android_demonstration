@@ -3,14 +3,14 @@ using Com.Canhub.Cropper;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Object = Java.Lang.Object;
 
-namespace ImageCropper.Maui
+namespace ImageCropper.MAUI.Platforms.Android
 {
     public class Platform : Fragment, IActivityResultCallback
     {
         public MauiAppCompatActivity AppActivity { get; set; }
 
         // This needs to be called in MainActivity.cs throught the OnCreate function
-        public void Instanciate_Image_Cropper(MauiAppCompatActivity activity)
+        public void InstanciateImageCropper(MauiAppCompatActivity activity)
         {
             DependencyService.Register<IImageCropperWrapper, PlatformImageCropper>();
             AppActivity = activity;

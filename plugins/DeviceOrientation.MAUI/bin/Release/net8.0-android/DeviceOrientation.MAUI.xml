@@ -4,5 +4,65 @@
         <name>DeviceOrientation.MAUI</name>
     </assembly>
     <members>
+        <member name="F:DeviceOrientation.MAUI.Orientator.Accelerator">
+            <summary>
+            Accelerator is the actual position of the device
+            </summary>
+        </member>
+        <member name="F:DeviceOrientation.MAUI.Orientator.AcceleratorUpdating">
+            <summary>
+            If accelerator is updating this variable will be true, false if not updating
+            </summary>
+        </member>
+        <member name="F:DeviceOrientation.MAUI.Orientator.DeviceOrientation">
+            <summary>
+            Actual orientation from device, only updates if AcceleratorUpdating is true
+            </summary>
+        </member>
+        <member name="F:DeviceOrientation.MAUI.Orientator.AcceleratorUpdateChangeOrientation">
+            <summary>
+            Set this to true if you want the orientation change based in accelerator
+            </summary>
+        </member>
+        <member name="F:DeviceOrientation.MAUI.Orientator.OnDeviceOrientationChanged">
+            <summary>
+            Called everytime the DeviceOrientation is changed,
+            consider making this variable null after using it
+            </summary>
+        </member>
+        <member name="F:DeviceOrientation.MAUI.Orientator.AcceleratorUpdateChangeOrientationOnlyLand">
+            <summary>
+            If this is enabled only landscape and reverse landscape will be changed automatically
+            also need the AcceleratorUpdateChangeOrientation enabled
+            </summary>
+        </member>
+        <member name="M:DeviceOrientation.MAUI.Orientator.Get">
+            <summary>
+            Receives the orientator to get functionalities for specific OS
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DeviceOrientation.MAUI.Orientator.StartAccelerator">
+            <summary>
+            Accelerator will start receiving the actual position of the device and DeviceOrientation will be updated
+            </summary>
+        </member>
+        <member name="M:DeviceOrientation.MAUI.Orientator.DisposeAccelerator">
+            <summary>
+            Stop receiving the actual position of the device for Accelerator and DeviceOrientation
+            </summary>
+        </member>
+        <member name="M:DeviceOrientation.MAUI.Platforms.Android.MainActivity.SetOrientation(DeviceOrientation.MAUI.Orientation)">
+            <summary>
+            Change orientation from device,
+            this functions receives 2 types of orientation
+            "portrait" and "landscape"
+            </summary>
+        </member>
+        <member name="M:DeviceOrientation.MAUI.Platforms.Android.Interface.Generate(System.Object)">
+            <summary>
+            Generetas the interface for the android devices
+            </summary>
+        </member>
     </members>
 </doc>

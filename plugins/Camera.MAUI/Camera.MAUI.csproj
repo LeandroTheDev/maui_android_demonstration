@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
@@ -25,10 +25,12 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>csharp; dotnet; cross-platform; camera; cameraview; codebar; qr; qr-decoder; codebar-encoder; codebar-decoder; camera-component; camera-view;  plugin; maui; dotnet-maui;</PackageTags>
 		<Authors>LeandroTheDev</Authors>		
-		<Version>1.8</Version>
+		<Version>2.9</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="DeviceOrientation.MAUI" Version="2.5.0" Condition="'$(TargetFramework)' == 'net8.0-android'"/>
+		<PackageReference Include="DeviceOrientation.MAUI" Version="2.5.0" Condition="'$(TargetFramework)' == 'net8.0-ios'"/>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 	</ItemGroup>
@@ -55,7 +57,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Cameras\PictureDefault.xaml.cs">
+	    <DependentUpon>PictureDefault.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="BarcodeImage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Cameras\VideoDefault.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

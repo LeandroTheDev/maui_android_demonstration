@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Java.Lang;
 
 namespace FacialRecognition.MAUI.Platforms.Android
@@ -8,14 +9,8 @@ namespace FacialRecognition.MAUI.Platforms.Android
     {
         Activity? activity;
         Context? context;
+        public static Com.Ttv.Face.FaceEngine? facialRecognitionInstance;
 
-        /// <summary>
-        /// Ask for photo and register the new image to be used in Facial Recognition
-        /// </summary>
-        /// <param name="Navigation"></param>
-        /// <returns></returns>
-        /// <exception cref="NullPointerException"></exception>
-        /// <exception cref="System.Exception"></exception>
         public async Task<object> RegisterNewImage(INavigation Navigation)
         {
             Console.WriteLine("[FacialRecognition] Initializing");
@@ -34,11 +29,22 @@ namespace FacialRecognition.MAUI.Platforms.Android
             context = activity.ApplicationContext;
             Console.WriteLine("[FacialRecognition] Context set");
 
-            Console.WriteLine("[FacialRecognition] Checking camera permission");
-            if (!new PermissionHandler(activity).HasCameraPermission())
+            if (MainActivity.facialRecognitionInstance == null)
             {
-                Console.WriteLine("[FacialRecognition] No camera permission, requesting...");
-                new PermissionHandler(activity).RequestCameraPermission();
+                Console.WriteLine("[FacialRecognition] Instanciating SDK");
+                MainActivity.facialRecognitionInstance = Com.Ttv.Face.FaceEngine.CreateInstance(context);
+                if (MainActivity.facialRecognitionInstance == null)
+                {
+                    throw new System.Exception("The SDK Instance returned null");
+                }
+                MainActivity.facialRecognitionInstance.Init();
+            }
+
+            Console.WriteLine("[FacialRecognition] Checking camera permission");
+            PermissionStatus permission = await Permissions.RequestAsync<Permissions.Camera>();
+            if (permission != PermissionStatus.Granted)
+            {
+                Console.WriteLine("[FacialRecognition] No camera permission");
                 throw new System.Exception("Permission Denied");
             }
             Console.WriteLine("[FacialRecognition] Device has camera permission");
@@ -89,26 +95,101 @@ namespace FacialRecognition.MAUI.Platforms.Android
             return await result.Task;
         }
 
-        /// <summary>
-        /// Register the data to recognize images manually
-        /// </summary>
-        /// <param name="data"></param>
         public void RegisterFromData(byte[] data)
         {
             Facial.imageRecognition = data;
         }
 
-        /// <summary>
-        /// Asks for a photo them
-        /// performs analyze to verify the face integrity
-        /// of the 2 images, the registred one and the taked photo
-        /// </summary>
-        /// <param name="Navigation"></param>
-        /// <returns></returns>
-        /// <exception cref="NullPointerException"></exception>
-        /// <exception cref="System.Exception"></exception>
+        public async Task<byte[]> RegisterFromImageBytes(byte[] imageBytes)
+        {
+            Console.WriteLine("[FacialRecognition] Initializing");
+            // Check if activity is null
+            if (Platform.CurrentActivity == null)
+            {
+                throw new NullPointerException("Activity is null");
+            }
+            activity = Platform.CurrentActivity;
+            Console.WriteLine("[FacialRecognition] Activity set");
+            // Check if context is null
+            if (activity.ApplicationContext == null)
+            {
+                throw new NullPointerException("Context is null");
+            }
+            context = activity.ApplicationContext;
+
+            Console.WriteLine("[FacialRecognition] Context set");
+
+            // Inicializing instance if not set
+            if (MainActivity.facialRecognitionInstance == null)
+            {
+                Console.WriteLine("[FacialRecognition] Instanciating SDK");
+                MainActivity.facialRecognitionInstance = Com.Ttv.Face.FaceEngine.CreateInstance(context);
+                if (MainActivity.facialRecognitionInstance == null)
+                {
+                    throw new System.Exception("The SDK Instance returned null");
+                }
+                MainActivity.facialRecognitionInstance.Init();
+            }
+
+            // Saving temporary image
+            string tmpDirectory = System.IO.Path.Combine(FileSystem.Current.CacheDirectory, "tmp_facial.png");
+            File.Delete(tmpDirectory);
+            File.WriteAllBytes(tmpDirectory, imageBytes);
+
+            Console.WriteLine($"[FacialRecognition] Temporary Image: {tmpDirectory}");
+
+            // Getting bitmap from file
+            Bitmap imageBitmap = await BitmapFactory.DecodeFileAsync(tmpDirectory) ?? throw new NullReferenceException("Temporary file returned null");
+
+            Console.WriteLine($"[FacialRecognition] Checking if temporary file exist: {File.Exists(tmpDirectory)}");
+
+            // Check faces registred equals from the image
+            IList<Com.Ttv.Face.FaceResult>? faceResults = MainActivity.facialRecognitionInstance.DetectFaceFromBitmap(imageBitmap);
+
+            if (faceResults == null)
+            {
+                Console.WriteLine("[FacialRecognition] Null detected in face detection");
+                throw new System.Exception("Null detected in face detection");
+            }
+
+            if (faceResults.Count == 0)
+            {
+
+                Console.WriteLine("[FacialRecognition] No face detected");
+                throw new System.Exception("No face detected");
+            }
+
+            Console.WriteLine("[FacialRecognition] Face detected");
+            MainActivity.facialRecognitionInstance.ExtractFeatureFromBitmap(imageBitmap, faceResults);
+            Console.WriteLine("[FacialRecognition] Recognition from bitmap extracted");
+
+            // Get the face
+            Com.Ttv.Face.FaceResult face = faceResults[0];
+            if (face.Feature == null)
+            {
+                Console.WriteLine("[FacialRecognition] Recognition bytes null");
+                throw new System.Exception("Recognition failed");
+            }
+            Console.WriteLine("[FacialRecognition] Recognition bytes received");
+            // Get the face score
+            float faceLimiar = face.Liveness;
+
+            // Get the encription for recognition
+            byte[] faceFeature = face.Feature.ToArray();
+
+            // Saving the registred feature in static
+            Facial.imageRecognition = faceFeature;
+
+            return faceFeature;
+        }
+
         public async Task<bool> PerformAnalyze(INavigation Navigation)
         {
+            //Check if exist any data registred
+            if (Facial.imageRecognition == null)
+            {
+                throw new NullPointerException("No images registred");
+            }
             Console.WriteLine("[FacialRecognition] Initializing");
             //Check if activity is null
             if (Platform.CurrentActivity == null)
@@ -125,11 +206,21 @@ namespace FacialRecognition.MAUI.Platforms.Android
             context = activity.ApplicationContext;
             Console.WriteLine("[FacialRecognition] Context set");
 
-            Console.WriteLine("[FacialRecognition] Checking camera permission");
-            if (!new PermissionHandler(activity).HasCameraPermission())
+            if (MainActivity.facialRecognitionInstance == null)
             {
-                Console.WriteLine("[FacialRecognition] No camera permission, requesting...");
-                new PermissionHandler(activity).RequestCameraPermission();
+                MainActivity.facialRecognitionInstance = Com.Ttv.Face.FaceEngine.CreateInstance(context);
+                if (MainActivity.facialRecognitionInstance == null)
+                {
+                    throw new System.Exception("The SDK Instance returned null");
+                }
+                MainActivity.facialRecognitionInstance.Init();
+            }
+
+            Console.WriteLine("[FacialRecognition] Checking camera permission");
+            PermissionStatus permission = await Permissions.RequestAsync<Permissions.Camera>();
+            if (permission != PermissionStatus.Granted)
+            {
+                Console.WriteLine("[FacialRecognition] No camera permission");
                 throw new System.Exception("Permission Denied");
             }
             Console.WriteLine("[FacialRecognition] Device has camera permission");
@@ -163,9 +254,97 @@ namespace FacialRecognition.MAUI.Platforms.Android
             // Wait until the facial camera returns
             return await result.Task;
         }
+
+        public async Task<bool> PerformAnalyzeFromImageBytes(byte[] imageBytes)
+        {
+            Console.WriteLine("[FacialRecognition] Initializing");
+            //Check if activity is null
+            if (Platform.CurrentActivity == null)
+            {
+                throw new NullPointerException("Activity is null");
+            }
+            activity = Platform.CurrentActivity;
+            Console.WriteLine("[FacialRecognition] Activity set");
+            //Check if context is null
+            if (activity.ApplicationContext == null)
+            {
+                throw new NullPointerException("Context is null");
+            }
+            context = activity.ApplicationContext;
+            Console.WriteLine("[FacialRecognition] Context set");
+
+            if (MainActivity.facialRecognitionInstance == null)
+            {
+                Console.WriteLine("[FacialRecognition] Instanciating SDK");
+                MainActivity.facialRecognitionInstance = Com.Ttv.Face.FaceEngine.CreateInstance(context);
+                if (MainActivity.facialRecognitionInstance == null)
+                {
+                    throw new System.Exception("The SDK Instance returned null");
+                }
+                MainActivity.facialRecognitionInstance.Init();
+            }
+            if (Facial.imageRecognition == null)
+            {
+                throw new NullPointerException("No images registred");
+            }
+
+            // Saving temporary image
+            string tmpDirectory = System.IO.Path.Combine(FileSystem.Current.CacheDirectory, "tmp_facial.png");
+            File.Delete(tmpDirectory);
+            File.WriteAllBytes(tmpDirectory, imageBytes);
+
+            Console.WriteLine($"[FacialRecognition] Temporary Image: {tmpDirectory}");
+
+            // Getting bitmap from file
+            Bitmap imageBitmap = await BitmapFactory.DecodeFileAsync(tmpDirectory) ?? throw new NullReferenceException("Temporary file returned null");
+
+            // Check faces registred equals from the image
+            IList<Com.Ttv.Face.FaceResult>? faceResults = MainActivity.facialRecognitionInstance.DetectFaceFromBitmap(imageBitmap);
+
+            if (faceResults == null)
+            {
+                Console.WriteLine("[FacialRecognition] Null detected in face detection");
+                return false;
+            }
+
+            if (faceResults.Count == 0)
+            {
+                Console.WriteLine("[FacialRecognition] No face detected");
+                return false;
+            }
+
+            Console.WriteLine("[FacialRecognition] Face detected");
+            MainActivity.facialRecognitionInstance.ExtractFeatureFromBitmap(imageBitmap, faceResults);
+            Console.WriteLine("[FacialRecognition] Recognition from bitmap extracted");
+
+            // Get the face
+            Com.Ttv.Face.FaceResult face = faceResults[0];
+            // Get the facial recognition limiar
+            if (face.Feature == null)
+            {
+                Console.WriteLine("[FacialRecognition] Recognition failed");
+                return false;
+            }
+            Console.WriteLine($"[FacialRecognition] Recognition received");
+
+            // Get the score between the 2 images
+            float score = MainActivity.facialRecognitionInstance.CompareFeature(face.Feature.ToArray(), Facial.imageRecognition);
+            float faceScore = face.Liveness; // Indicates how the face is real
+
+            if (score > 78)
+            {
+                Console.WriteLine($"[FacialRecognition] Score: {score}");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"[FacialRecognition] Score: {score}");
+                return false;
+            }
+        }
     }
 
-    static public class AndroidInterface
+    static public class Interface
     {
         /// <summary>
         /// Creates the facial recognition interfaces for android devices

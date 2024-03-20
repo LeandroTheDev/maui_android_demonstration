@@ -49,6 +49,97 @@
             Scale mode for the image. This is a bindable property.
             </summary>
         </member>
+        <member name="F:Camera.MAUI.Cameras.PictureDefault.cameraPosition">
+            <summary>
+            The actual position from the camera, 0 = back, 1 = frontal
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.PictureDefault.enableAccelerator">
+            <summary>
+            Disable or enable the accelerator, if not enable the picture
+            will not rotate, use this for full bytes compatibility
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.PictureDefault.disposeAccelerator">
+            <summary>
+            When the camera dispose the orientation will be set to the portrait
+            and accelerator will be disposed
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.PictureDefault.cameraBusy">
+            <summary>
+            If camera is busy then you cannot perform camera actions
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.PictureDefault.cameraDescription">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="E:Camera.MAUI.Cameras.PictureDefault.pictureTake">
+            <summary>
+            Called when take a photo
+            </summary>
+        </member>
+        <member name="E:Camera.MAUI.Cameras.PictureDefault.cameraClose">
+            <summary>
+            Called when the camera is closed
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.cameraPosition">
+            <summary>
+            The actual position from the camera, 0 = back, 1 = frontal
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.enableAccelerator">
+            <summary>
+            Disable or enable the accelerator, if not
+            enable the video will be locked at first orientation set
+            by default is on landscape
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.disposeAccelerator">
+            <summary>
+            When the camera dispose the orientation will be set to the portrait
+            and accelerator will be disposed
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.disposePortrait">
+            <summary>
+            Disposing the video will be back to portrait
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.cameraBusy">
+            <summary>
+            If camera is busy then you cannot perform camera actions
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.cameraRecording">
+            <summary>
+            Check if camera is recording
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.cameraDescription">
+            <summary>
+            Description
+            </summary>
+        </member>
+        <member name="F:Camera.MAUI.Cameras.VideoDefault.videoDirectory">
+            <summary>
+            Video will be saved in this location, by default will be saved in application cache folder
+            with name tmpVideo.mp4
+            </summary>
+        </member>
+        <member name="E:Camera.MAUI.Cameras.VideoDefault.videoTake">
+            <summary>
+            Called when the video finish recording
+            </summary>
+        </member>
+        <member name="E:Camera.MAUI.Cameras.VideoDefault.cameraClose">
+            <summary>
+            Called when the camera is closed
+            </summary>
+        </member>
         <member name="P:Camera.MAUI.CameraView.Self">
             <summary>
             Binding property for use this control in MVVM.

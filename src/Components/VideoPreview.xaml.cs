@@ -7,22 +7,22 @@ public partial class VideoPreview : ContentPage
     private int Camera_Position = 0;
     private bool Camera_Busy = false;
     private bool Playing = false;
-    private string Save_Video_Directory;
+    private string SaveVideoDirectory;
     private readonly string Video_Description = "Template";
     public event EventHandler<string> Closed;
 
-    private readonly DeviceOrientation.MAUI.IOrientator orientator = DeviceOrientation.MAUI.Orientator.Get_Orientator();
+    private readonly DeviceOrientation.MAUI.IOrientator orientator = DeviceOrientation.MAUI.Orientator.Get();
     public VideoPreview(string directory)
     {
         //Make orientation to landscape
-        orientator.Set_Orientation("landscape");
         InitializeComponent();
         Description.Text = Video_Description;
-        Save_Video_Directory = directory;
+        SaveVideoDirectory = directory;
     }
 
     private void Camera_View_Load(object sender, EventArgs e)
     {
+        orientator.SetOrientation(DeviceOrientation.MAUI.Orientation.Landscape);
         // Starting in Frontal Camera
         cameraView.Camera = cameraView.Cameras[0];
         // Enabling Microphone
@@ -30,7 +30,10 @@ public partial class VideoPreview : ContentPage
         MainThread.BeginInvokeOnMainThread(async () =>
         {
             await cameraView.StopCameraAsync();
-            await cameraView.StartCameraAsync();
+            _ = Task.Delay(200).ContinueWith(async (_) =>
+            {
+                await cameraView.StartCameraAsync();
+            });
         });
     }
 
@@ -48,8 +51,8 @@ public partial class VideoPreview : ContentPage
                 Playing = false;
                 return;
             }
-            Save_Video_Directory = Storage.Create_Directory(Save_Video_Directory);
-            await cameraView.StartRecordingAsync(Save_Video_Directory, new Size(1920, 1080));
+            SaveVideoDirectory = Storage.CreateDirectory(SaveVideoDirectory);
+            await cameraView.StartRecordingAsync(SaveVideoDirectory, new Size(1920, 1080));
         }
         // Stop Recording
         else
@@ -57,7 +60,7 @@ public partial class VideoPreview : ContentPage
             await cameraView.StopRecordingAsync();
             //Send video directory throught pop
             await Navigation.PopModalAsync();
-            Closed?.Invoke(this, Save_Video_Directory);
+            Closed?.Invoke(this, SaveVideoDirectory);
         }
     }
 
@@ -115,8 +118,10 @@ public partial class VideoPreview : ContentPage
 
     protected override void OnDisappearing()
     {
+        orientator.SetOrientation(DeviceOrientation.MAUI.Orientation.Portrait);
         base.OnDisappearing();
         //Reset orientation to portrait
-        orientator.Set_Orientation("portrait");
+        cameraView.ClearLogicalChildren();
+        _ = cameraView.StopCameraAsync();
     }
 }

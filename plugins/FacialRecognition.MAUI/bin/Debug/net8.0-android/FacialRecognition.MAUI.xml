@@ -4,16 +4,119 @@
         <name>FacialRecognition.MAUI</name>
     </assembly>
     <members>
-        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.RequestCameraPermission">
+        <member name="M:FacialRecognition.MAUI.IFacial.RegisterNewImage(Microsoft.Maui.Controls.INavigation)">
             <summary>
-            Request Permission camera permission
+            Ask for photo and register the new image as Data for the SDK recognition,
+            returns any object with the parameters:
+            <para>- recognitionImage: byte[]</para>
+            <para>- bruteImage: string (base64)</para>
             </summary>
         </member>
-        <member name="M:FacialRecognition.MAUI.Platforms.Android.PermissionHandler.HasCameraPermission">
+        <member name="M:FacialRecognition.MAUI.IFacial.RegisterFromData(System.Byte[])">
             <summary>
-            Simple check if the device has camera permission
+            Register the data recognition manually,
+            the data is received from RegisterNewImage function
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:FacialRecognition.MAUI.IFacial.RegisterFromImageBytes(System.Byte[])">
+            <summary>
+            Check if image has facial and then
+            translate it to be a Data for the SDK recognition
+            and save it
+            <para></para>
+            Will return a byte array for the data,
+            and will throw Exception if the image don't have a face
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.IFacial.PerformAnalyze(Microsoft.Maui.Controls.INavigation)">
+            <summary>
+            Asks for a photo and
+            performs analyze to verify the face integrity
+            of the 2 images, the registred one and the taked photo
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.IFacial.PerformAnalyzeFromImageBytes(System.Byte[])">
+            <summary>
+            Performs a analyze with the registred data and the
+            image bytes to check the integrity of the 2 images,
+            will return true if the two faces of the image is the same person
+            false if not
+            </summary>
+        </member>
+        <member name="F:FacialRecognition.MAUI.Platforms.Android.CameraActivity.facialRecognitionInstance">
+            <summary>
+            Instance for the FacialRecognition SDK
+            </summary>
+        </member>
+        <member name="E:FacialRecognition.MAUI.Platforms.Android.CameraActivity.Closed">
+            <summary>
+            Register:
+            Returns any object with the parameters:
+            <para>- recognitionImage: byte[]</para>
+            <para>- bruteImage: string (base64)</para>
+            Analyzes:
+            Returns true if Recognition is the same from registred and false if not the same
+            </summary>
+        </member>
+        <member name="F:FacialRecognition.MAUI.Platforms.Android.CameraActivity.context">
+            <summary>
+            Android application context
+            </summary>
+        </member>
+        <member name="F:FacialRecognition.MAUI.Platforms.Android.CameraActivity.cameraPosition">
+            <summary>
+            Camera position (frontal, back)
+            </summary>
+        </member>
+        <member name="F:FacialRecognition.MAUI.Platforms.Android.CameraActivity.cameraBusy">
+            <summary>
+            If cameraBusy is true all functions will do nothing
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.StartCamera">
+            <summary>
+            Starts the camera
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.CameraLoaded(System.Object,System.EventArgs)">
+            <summary>
+            Called when camera is loaded
+            </summary>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.CameraClose(System.Object,System.EventArgs)">
+            <summary>
+            Close button
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.CameraTakePhotoRegister(System.Object,System.EventArgs)">
+            <summary>
+            Default function for register method
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <exception cref="T:System.NullReferenceException"></exception>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.CameraTakePhotoAnalyze(System.Object,System.EventArgs)">
+            <summary>
+            Default function for analyze method
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+            <exception cref="T:System.NullReferenceException"></exception>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.CameraActivity.CameraPositionSwitch(System.Object,System.EventArgs)">
+            <summary>
+            Change the camera position (frontal, back)
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:FacialRecognition.MAUI.Platforms.Android.Interface.GenerateFacialRecognitionInterface">
+            <summary>
+            Creates the facial recognition interfaces for android devices
+            </summary>
         </member>
     </members>
 </doc>

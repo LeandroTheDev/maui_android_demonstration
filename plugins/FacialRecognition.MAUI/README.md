@@ -1,7 +1,4 @@
 ﻿# Facial Recognition for MAUI
-### Dependencies
-- dotnet add package Camera.MAUI --source ..\Camera.MAUI\bin\Release\
-
 ### Compiling
 - dotnet build -c Release
 - dotnet pack -c Release
@@ -9,11 +6,15 @@
 - dotnet add package FacialRecognition.MAUI --source ..\plugins\FacialRecognition.MAUI\bin\Release\
 
 ### Debuging and Building
-- For debugging and building you will need to buy the ttvface sdk
+- For debugging and building you will need to download the [ttvface.aar](https://github.com/FaceOnLive/Face-Recognition-SDK-Android)
 
 
 ### Android
-- To use this plugin you will need to implement the Camera.MAUI in builder, view the plugin to see how to use it
+- RegisterNewImage and PerformAnalyze methods needs Camera.MAUI dependencie, consider installing it and injecting on builder
+```
+builder.UseMauiCameraView();
+```
+> If you will use the RegisterFromData/RegisterFromImageBytes and PerformAnalyzeFromImageBytes the Camera.MAUI is not necessary
 - In MainActivity Android instanciate the interfaces
 ```
 protected override void OnCreate(Bundle savedInstanceState) {
@@ -26,7 +27,12 @@ protected override void OnCreate(Bundle savedInstanceState) {
 - Using the plugin
 ```
 var facial = FacialRecognition.MAUI.Facial.GetFacialRecognition();
-facial.PerformAnalyze(Navigation);
+//Open camera, taks a photo and register the image
 facial.RegisterNewImage(Navigation);
+//Register image from bytes
 facial.RegisterFromData(data);
+//Open camera, takes a photo and test it with the image registred
+facial.PerformAnalyze(Navigation);
+//Perform anylizes with the data in parameter and the registred image
+facial.PerformAnalyzeFromImageBytes(data);
 ```

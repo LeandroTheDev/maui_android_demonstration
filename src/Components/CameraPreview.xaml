@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <!--Camera View-->
-        <cv:CameraView x:Name="cameraView" CamerasLoaded="Camera_View_Load" />
+        <cv:CameraView x:Name="cameraView" CamerasLoaded="CameraViewLoad" />
 
         <!--Start-->
         <Grid Margin="0,10,0,0">

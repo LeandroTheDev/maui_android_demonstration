@@ -1,4 +1,6 @@
 ﻿# Compiling and using the plugin
+### Dependencies
+- dotnet add package DeviceOrientation.MAUI --source ..\DeviceOrientation.MAUI\bin\Release\
 ### Compiling
 -  dotnet build -c Release
 ### Adding to your project

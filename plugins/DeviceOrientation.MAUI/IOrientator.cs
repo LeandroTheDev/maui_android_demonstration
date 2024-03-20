@@ -2,6 +2,6 @@
 {
     public interface IOrientator
     {
-        void Set_Orientation(string orietantion);
+        void SetOrientation(Orientation orietantion);
     }
 }

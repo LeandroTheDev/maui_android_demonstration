@@ -4,6 +4,6 @@
         <name>ImageCropper.MAUI</name>
     </assembly>
     <members>
-        <!-- Badly formed XML comment ignored for member "M:ImageCropper.Maui.ImageCropper.Crop_Image(Microsoft.Maui.Controls.ImageSource,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:ImageCropper.MAUI.ImageCropper.CropImage(Microsoft.Maui.Controls.ImageSource,System.String)" -->
     </members>
 </doc>

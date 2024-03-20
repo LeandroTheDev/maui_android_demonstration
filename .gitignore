@@ -7,9 +7,12 @@ plugins/Camera.MAUI/obj
 plugins/ImageCropper.MAUI/obj
 plugins/LocalNotification.MAUI/obj
 plugins/FacialRecognition.MAUI/obj
+plugins/DeviceOrientation.MAUI/obj
 plugins/Borescope.MAUI/.vs
 plugins/Camera.MAUI/.vs
 plugins/ImageCropper.MAUI/.vs
 plugins/LocalNotification.MAUI/.vs
 plugins/FacialRecognition.MAUI/.vs
-plugins/FacialRecognition.MAUI/ttvface.aar
+plugins/FacialRecognition.MAUI/Platforms/Android/ttvface.aar
+plugins/FacialRecognition.MAUI/bin
+plugins/DeviceOrientation.MAUI/.vs

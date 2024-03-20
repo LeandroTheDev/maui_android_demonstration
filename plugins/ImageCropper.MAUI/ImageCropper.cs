@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ImageCropper.Maui
+namespace ImageCropper.MAUI
 {
     public class ImageCropper
     {
@@ -50,7 +50,7 @@ namespace ImageCropper.Maui
         /// <param name="imageSource"></param>
         /// <param name="directory"></param>
         /// <exception cref="Exception"></exception>
-        public async void Crop_Image(ImageSource imageSource = null, string directory = null)
+        public async void CropImage(ImageSource? imageSource = null, string? directory = null)
         {
             if (imageSource == null && directory == null){
                 throw new Exception("Double nulls, ImageSource and Directory not provided");
@@ -58,7 +58,7 @@ namespace ImageCropper.Maui
             // If Directory is not provided
             if (directory == null)
             {
-                byte[] image_bytes = null;
+                byte[]? imageBytes = null;
                 // ImageSource from a Stream
                 if (imageSource is IStreamImageSource)
                 {
@@ -66,7 +66,7 @@ namespace ImageCropper.Maui
                     byte[] bytesAvailable = new byte[stream.Length];
                     stream.Read(bytesAvailable, 0, bytesAvailable.Length);
 
-                    image_bytes = bytesAvailable;
+                    imageBytes = bytesAvailable;
                 }
                 // ImageSource from a File
                 else if (imageSource is FileImageSource fileImageSource)
@@ -74,7 +74,7 @@ namespace ImageCropper.Maui
                     var filePath = fileImageSource.File;
                     if (!string.IsNullOrEmpty(filePath))
                     {
-                        image_bytes = await File.ReadAllBytesAsync(filePath);
+                        imageBytes = await File.ReadAllBytesAsync(filePath);
                     }
                 }
                 // ImageSource from a Path
@@ -85,22 +85,22 @@ namespace ImageCropper.Maui
                     {
                         using (var client = new System.Net.Http.HttpClient())
                         {
-                            image_bytes = await client.GetByteArrayAsync(uri);
+                            imageBytes = await client.GetByteArrayAsync(uri);
                         }
                     }
                 }
 
                 // Null Check
-                if (image_bytes == null)
+                if (imageBytes == null)
                 {
                     throw new Exception("Image bytes is null, did the ImageSource is valid?");
                 }
                 // Temporary folder
-                string image_directory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
+                string imageDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "temp.png");
                 // Writing the temporary image
-                await File.WriteAllBytesAsync(image_directory, image_bytes);
+                await File.WriteAllBytesAsync(imageDirectory, imageBytes);
                 // Native call to crop image
-                DependencyService.Get<IImageCropperWrapper>().ShowFromFile(this, image_directory);
+                DependencyService.Get<IImageCropperWrapper>().ShowFromFile(this, imageDirectory);
             }
             // Directory provided
             else

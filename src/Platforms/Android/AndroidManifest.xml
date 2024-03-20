@@ -4,7 +4,7 @@
 		<!--Enabling Native ImageCropper-->
 		<activity android:name="com.canhub.cropper.CropImageActivity" android:theme="@style/Base.Theme.AppCompat" />
 		<!--Enabling Native Facial Recognition-->
-		<activity android:name="com.leandrothedev.android_native_demonstration.CameraActivity" android:theme="@style/Base.Theme.AppCompat"/>
+		<activity android:name="com.leandrothedev.android_native_demonstration.CameraActivity" android:theme="@style/Base.Theme.AppCompat" />
 	</application>
 	<!--Device Connection-->
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

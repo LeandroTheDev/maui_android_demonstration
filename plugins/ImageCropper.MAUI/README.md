@@ -23,7 +23,7 @@ In MainActivity.cs file:
     {
         base.OnCreate(savedInstanceState);
         // ImageCropper Plugin
-        new ImageCropper.Maui.Platform().Instanciate_Image_Cropper(this);
+        new ImageCropper.MAUI.Platform.Android.Platform().InstanciateImageCropper(this);
     }
 
 ```
@@ -47,7 +47,7 @@ In AppDelegate.cs file:
                 imageView.Source = ImageSource.FromFile(imageFile);
             });
         }
-    }.Crop_Image(image_source);
+    }.CropImage(image_source);
 ```
 ### Crop Image with additional parameters.
 ```cs
@@ -68,5 +68,5 @@ In AppDelegate.cs file:
                 imageView.Source = ImageSource.FromFile(imageFile);
             });
         }
-    }.Crop_Image(image_source);
+    }.CropImage(image_source);
 ```

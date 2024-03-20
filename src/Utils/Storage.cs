@@ -13,21 +13,21 @@
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
-        static async public Task<string> Save_ImageSource_To_Directory(string directory, ImageSource imageSource)
+        static async public Task<string> SaveImageSourceToDirectory(string directory, ImageSource imageSource)
         {
             PermissionStatus status = await Permissions.RequestAsync<Permissions.StorageWrite>();
             //Permission Treatment
             if (status != PermissionStatus.Granted) { throw new Exception("Permission Denied"); }
             //Creating the directory to add the image
-            var save_directory = Create_Directory(directory);
+            var saveDirectory = CreateDirectory(directory);
             //Error Treatment
-            if (save_directory == "operational_system_incompatible") { throw new Exception("Operational System Incompatible"); }
+            if (saveDirectory == "operational_system_incompatible") { throw new Exception("Operational System Incompatible"); }
             //Getting image bytes
-            var bytes = await Get_Image_Bytes_From_ImageSource(imageSource) ?? throw new Exception("Image Corrupted");
+            var bytes = await GetImageBytesFromImageSource(imageSource) ?? throw new Exception("Image Corrupted");
             //Saving the file into directory            
-            await File.WriteAllBytesAsync(save_directory, bytes);
+            await File.WriteAllBytesAsync(saveDirectory, bytes);
             Console.WriteLine("[Storage]: Image Saved");
-            return save_directory;
+            return saveDirectory;
         }
 
         /// <summary>
@@ -37,60 +37,60 @@
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
-        static public string Create_Directory(string directory)
+        static public string CreateDirectory(string directory)
         {
-            var formated_directory = "operational_system_incompatible";
+            var formatedDirectory = "operational_system_incompatible";
 #if ANDROID
-            formated_directory = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            string[] directory_parts = directory.Split('/');
-            var directory_with_file = false;
+            formatedDirectory = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            string[] directoryParts = directory.Split('/');
+            var directoryWithFile = false;
             //Formatting the directory
-            foreach (string part in directory_parts)
+            foreach (string part in directoryParts)
             {
                 // If contains a dot this means is a file
                 if (part.Contains('.'))
                 {
                     //If is a file so create directory before combining the path
-                    Directory.CreateDirectory(formated_directory);
+                    Directory.CreateDirectory(formatedDirectory);
                     Console.WriteLine("[Storage]: Directory created with file name provided");
-                    directory_with_file = true;
-                    formated_directory = System.IO.Path.Combine(formated_directory, part);
+                    directoryWithFile = true;
+                    formatedDirectory = System.IO.Path.Combine(formatedDirectory, part);
                     continue;
                 }
-                formated_directory = System.IO.Path.Combine(formated_directory, part);
+                formatedDirectory = System.IO.Path.Combine(formatedDirectory, part);
             }
-            Console.WriteLine("[Storage]: Directory formated: " + formated_directory);
+            Console.WriteLine("[Storage]: Directory formated: " + formatedDirectory);
 
             //Check if directory has file
             //That means the directory is not yet created
-            if (!directory_with_file)
+            if (!directoryWithFile)
             {
-                Directory.CreateDirectory(formated_directory);
+                Directory.CreateDirectory(formatedDirectory);
                 Console.WriteLine("[Storage]: Directory created without file name provided");
             }
 #endif
             //Returning the directory
-            return formated_directory;
+            return formatedDirectory;
         }
 
-        static public string Remove_File(string directory)
+        static public string RemoveFile(string directory)
         {
-            var formated_directory = "operational_system_incompatible";
+            var formatedDirectory = "operational_system_incompatible";
 #if ANDROID
-            formated_directory = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
-            string[] directory_parts = directory.Split('/');
+            formatedDirectory = Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+            string[] directoryParts = directory.Split('/');
             //Adding the path
-            foreach (string part in directory_parts)
+            foreach (string part in directoryParts)
             {
-                formated_directory = System.IO.Path.Combine(formated_directory, part);
+                formatedDirectory = System.IO.Path.Combine(formatedDirectory, part);
             }
             try
             {
                 // Check if exist
-                if (File.Exists(formated_directory))
+                if (File.Exists(formatedDirectory))
                 {
                     // Removing the file
-                    File.Delete(formated_directory);
+                    File.Delete(formatedDirectory);
                     return "success";
                 }
                 else
@@ -101,10 +101,10 @@
             catch (Exception ex)
             {
                 Console.WriteLine($"[File] error while deleting the file: {ex}");
-                formated_directory = "error_on_deleting";
+                formatedDirectory = "error_on_deleting";
             }
 #endif
-            return formated_directory;
+            return formatedDirectory;
         }
 
         /// <summary>
@@ -113,7 +113,7 @@
         /// </summary>
         /// <param name="imageSource"></param>
         /// <returns></returns>
-        static public async Task<byte[]> Get_Image_Bytes_From_ImageSource(ImageSource imageSource)
+        static public async Task<byte[]> GetImageBytesFromImageSource(ImageSource imageSource)
         {
             //ImageSource from a Stream
             if (imageSource is IStreamImageSource)

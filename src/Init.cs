@@ -8,7 +8,7 @@ public static class Init
     public static MauiApp CriarAplicacao()
     {
         var builder = MauiApp.CreateBuilder();
-        builder = Builder_Construct(builder);
+        builder = BuilderConstruct(builder);
 
         return builder.Build();
     }
@@ -18,7 +18,7 @@ public static class Init
     /// </summary>
     /// <param name="builder"></param>
     /// <returns></returns>
-    private static MauiAppBuilder Builder_Construct(MauiAppBuilder builder)
+    private static MauiAppBuilder BuilderConstruct(MauiAppBuilder builder)
     {
         // Add the plugins and necessary resources here
         builder

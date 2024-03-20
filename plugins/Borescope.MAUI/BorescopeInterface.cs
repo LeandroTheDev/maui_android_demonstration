@@ -1,8 +1,10 @@
-﻿namespace BorescopePlugin
+﻿namespace BorescopePlugin.MAUI
 {
     public interface IBorescope
     {
-        void Instanciate_Borescope(object activity);
-        void Start_HoWiFi(EventHandler<ImageSource> callback);
+        /// <summary>
+        /// To do
+        /// </summary>
+        object StartHoWiFi();
     }
 }

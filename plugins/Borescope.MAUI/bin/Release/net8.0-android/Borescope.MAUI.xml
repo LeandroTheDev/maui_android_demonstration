@@ -4,5 +4,10 @@
         <name>Borescope.MAUI</name>
     </assembly>
     <members>
+        <member name="M:BorescopePlugin.MAUI.IBorescope.StartHoWiFi">
+            <summary>
+            To do
+            </summary>
+        </member>
     </members>
 </doc>

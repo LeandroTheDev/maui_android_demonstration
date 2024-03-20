@@ -1,8 +1,6 @@
 using Android.Content;
 using Android.Graphics;
 using Android.Util;
-using BorescopePlugin.MAUI;
-using CommunityToolkit.Mvvm.Messaging;
 using Java.Lang;
 using Java.Util.Concurrent;
 using static Android.Graphics.Bitmap;
@@ -49,7 +47,7 @@ public class StreamSelf
                     if (i > 10)
                     {
                         Log.Error(TAG, "NOT FOUND");
-                        WeakReferenceMessenger.Default.Send(this, HandlerParams.ERROR_NOT_FOUND);
+                        //WeakReferenceMessenger.Default.Send(this, HandlerParams.ERROR_NOT_FOUND);
                         break;
                     }
                     else
@@ -97,7 +95,7 @@ public class StreamSelf
         }
         else
         {
-            WeakReferenceMessenger.Default.Send(new IntMessage(18), "HoWiFi");
+            //WeakReferenceMessenger.Default.Send(new IntMessage(18), "HoWiFi");
         }
     }
 
@@ -161,7 +159,7 @@ public class StreamSelf
                         imageBitmap.Compress(CompressFormat.Jpeg, 80, stream);
                         byte[] b = stream.ToArray();
                         imagem = b;
-                        WeakReferenceMessenger.Default.Send(this, HandlerParams.TAKE_PICTURE);
+                        //WeakReferenceMessenger.Default.Send(this, HandlerParams.TAKE_PICTURE);
                         isNeedTakePhoto = false;
                     }
                     //Update Imaage

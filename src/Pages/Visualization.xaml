@@ -13,35 +13,51 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
             <!--Camera Button-->
-            <Button Text="Camera" Margin="20" Clicked="Button_Open_Camera"></Button>
+            <Button Text="Camera" Margin="20" Clicked="ButtonOpenCamera"></Button>
             <!--Custom Camera Button-->
-            <Button Text="Custom Camera" Margin="20" Clicked="Button_Open_Custom_Camera"></Button>
+            <Button Text="Custom Camera" Margin="20" Clicked="ButtonOpenCustomCamera"></Button>
             <!--Enable Crop Image-->
             <HorizontalStackLayout HorizontalOptions="Center">
                 <!--Text-->
                 <Label Text="Enable Crop" VerticalTextAlignment="Center"/>
                 <!--Checkbox-->
-                <CheckBox CheckedChanged="Enable_Crop"/>
+                <CheckBox CheckedChanged="EnableCrop"/>
             </HorizontalStackLayout>
             <!--Enable Save Image-->
             <HorizontalStackLayout HorizontalOptions="Center">
                 <!--Text-->
                 <Label Text="Enable Save" VerticalTextAlignment="Center"/>
                 <!--Checkbox-->
-                <CheckBox CheckedChanged="Enable_Save"/>
+                <CheckBox CheckedChanged="EnableSave"/>
             </HorizontalStackLayout>
             <!--Custom Video Button-->
-            <Button Text="Custom Video" Margin="20" Clicked="Button_Open_Custom_Video"></Button>
+            <Button Text="Custom Video" Margin="20" Clicked="ButtonOpenCustomVideo"></Button>
             <!--Notification Button-->
-            <Button Text="Notification" Margin="20" Clicked="Button_Open_Notification"></Button>
+            <Button Text="Notification" Margin="20" Clicked="ButtonOpenNotification"></Button>
             <!--GPS Button-->
-            <Button Text="GPS" Margin="20" Clicked="Button_Get_Location"></Button>
+            <Button Text="GPS" Margin="20" Clicked="ButtonGetLocation"></Button>
             <!--Facial Recognition Register Button-->
-            <Button Text="Facial Recognition Register" Margin="20" Clicked="Button_Facial_Register_Recognition"></Button>
+            <Button Text="Facial Recognition Register" Margin="20" Clicked="ButtonFacialRegisterRecognition"></Button>
             <!--Facial Recognition Analyze Button-->
-            <Button Text="Facial Recognition Analyze" Margin="20" Clicked="Button_Facial_Analyze_Recognition"></Button>
+            <Button Text="Facial Recognition Analyze" Margin="20" Clicked="ButtonFacialAnalyzeRecognition"></Button>
+            <!--Custom Camera Button-->
+            <Button Text="Get Accelerator" Margin="20" Clicked="ButtonGetAccelerator"></Button>
+            <!--Enable Accelerator-->
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <!--Text-->
+                <Label Text="Enable Accelerator" VerticalTextAlignment="Center"/>
+                <!--Checkbox-->
+                <CheckBox CheckedChanged="EnableAccelerator"/>
+            </HorizontalStackLayout>
+            <!--Enable Orientation-->
+            <HorizontalStackLayout HorizontalOptions="Center">
+                <!--Text-->
+                <Label Text="Enable Orientation" VerticalTextAlignment="Center"/>
+                <!--Checkbox-->
+                <CheckBox CheckedChanged="EnableOrientation"/>
+            </HorizontalStackLayout>
             <!--Generic Preview-->
-            <Image x:Name="image_preview" HeightRequest="100" WidthRequest="100"/>
+            <Image x:Name="imagePreview" HeightRequest="100" WidthRequest="100"/>
 
         </VerticalStackLayout>
     </ScrollView>

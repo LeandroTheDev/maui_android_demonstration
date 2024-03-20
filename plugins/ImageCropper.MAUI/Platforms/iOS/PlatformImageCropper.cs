@@ -5,7 +5,7 @@ using System.Diagnostics;
 using UIKit;
 
 
-namespace ImageCropper.Maui
+namespace ImageCropper.MAUI.Platforms.IOS
 {
     // All the code in this file is only included on iOS.
     public class PlatformImageCropper : IImageCropperWrapper

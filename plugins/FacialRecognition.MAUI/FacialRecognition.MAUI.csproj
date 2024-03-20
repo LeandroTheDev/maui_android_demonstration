@@ -6,7 +6,7 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>2.8</Version>
+		<Version>3.8</Version>
 
 		<PackageProjectUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/LeandroTheDev/maui_android_demonstration/tree/main</RepositoryUrl>
@@ -16,9 +16,13 @@
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <None Remove="Platforms\Android\MainActivity.cs~RF1b57f60d.TMP" />
+	</ItemGroup>
+
 	<!--Facial Recognition SDK-->
 	<ItemGroup>
-	  <AndroidLibrary Include="ttvface.aar" />
+	  <AndroidLibrary Include="Platforms\Android\ttvface.aar" />
 	</ItemGroup>
 
 	<!--Android Libs-->
