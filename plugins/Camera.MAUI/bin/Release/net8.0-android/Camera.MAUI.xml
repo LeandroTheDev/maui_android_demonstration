@@ -96,12 +96,16 @@
             Disable or enable the accelerator, if not
             enable the video will be locked at first orientation set
             by default is on landscape
+            <para></para>
+            The basic orientation if accelerator is not enabled is the one from
+            DeviceOrientation.MAUI.Orientator.DeviceOrientation, only accept Landscape
+            and ReverseLandscape, everthing else will be considered Landscape
             </summary>
         </member>
         <member name="F:Camera.MAUI.Cameras.VideoDefault.disposeAccelerator">
             <summary>
             When the camera dispose the orientation will be set to the portrait
-            and accelerator will be disposed
+            and accelerator will be disposed.
             </summary>
         </member>
         <member name="F:Camera.MAUI.Cameras.VideoDefault.disposePortrait">

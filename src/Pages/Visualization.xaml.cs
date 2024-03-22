@@ -1,3 +1,4 @@
+using Android_Native_Demonstration.Utils;
 using Plugin.LocalNotification;
 
 namespace Android_Native_Demonstration.Pages;
@@ -6,6 +7,8 @@ public partial class Visualization : ContentPage
 {
     private bool enableCrop;
     private bool enableSave;
+    // If timeout is enabled then you cannot perform actions
+    private bool timeout = false;
     public Visualization()
     {
         InitializeComponent();
@@ -16,6 +19,9 @@ public partial class Visualization : ContentPage
 
     private async void ButtonOpenCamera(object? sender, EventArgs e)
     {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
         try
         {
             var photo = await MediaPicker.CapturePhotoAsync();
@@ -96,6 +102,9 @@ public partial class Visualization : ContentPage
     }
     private async void ButtonOpenCustomCamera(object? sender, EventArgs e)
     {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
         var camera = new Camera.MAUI.Cameras.PictureDefault()
         {
             CameraDescription = "Test",
@@ -201,10 +210,14 @@ public partial class Visualization : ContentPage
     }
     private async void ButtonOpenCustomVideo(object? sender, EventArgs e)
     {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
         var video = new Camera.MAUI.Cameras.VideoDefault()
         {
             CameraPosition = 0,
             CameraDescription = "Video Test",
+            VideoDirectory = Storage.CreateDirectory($"Movies/Demonstration/{DateTime.Now:yyyyMMdd_HHmmss}.mp4"),
             EnableAccelerator = true,
             VideoTake = (sender, directory) =>
             {
@@ -249,6 +262,9 @@ public partial class Visualization : ContentPage
     }
     private async void ButtonFacialRegisterRecognition(object? sender, EventArgs e)
     {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
         var camera = new Camera.MAUI.Cameras.PictureDefault()
         {
             CameraDescription = "Facial Register",
@@ -282,6 +298,9 @@ public partial class Visualization : ContentPage
     }
     private async void ButtonFacialAnalyzeRecognition(object? sender, EventArgs e)
     {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
         var camera = new Camera.MAUI.Cameras.PictureDefault()
         {
             CameraDescription = "Facial Anaylze",
@@ -306,7 +325,8 @@ public partial class Visualization : ContentPage
                     // Close
                     await Navigation.PopModalAsync();
                     await DisplayAlert("Success", "Facial is the same as the registered", "OK");
-                } else
+                }
+                else
                 {
                     await DisplayAlert("Fail", "Facial is NOT the same as the registered", "OK");
                 }

@@ -44,7 +44,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Borescope.MAUI" Version="4.3.0" />
-		<PackageReference Include="Camera.MAUI" Version="2.9.0" />
+		<PackageReference Include="Camera.MAUI" Version="3.6.0" />
 		<PackageReference Include="DeviceOrientation.MAUI" Version="2.5.0" />
 		<PackageReference Include="FacialRecognition.MAUI" Version="3.8.0" />
 		<PackageReference Include="ImageCropper.MAUI" Version="1.0.7" />
@@ -52,6 +52,10 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Components\" />
 	</ItemGroup>
 
 	<!--Android Only-->

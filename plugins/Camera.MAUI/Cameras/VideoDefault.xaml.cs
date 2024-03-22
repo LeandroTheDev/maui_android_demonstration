@@ -13,14 +13,18 @@ public partial class VideoDefault : ContentPage
     /// Disable or enable the accelerator, if not
     /// enable the video will be locked at first orientation set
     /// by default is on landscape
+    /// <para></para>
+    /// The basic orientation if accelerator is not enabled is the one from
+    /// DeviceOrientation.MAUI.Orientator.DeviceOrientation, only accept Landscape
+    /// and ReverseLandscape, everthing else will be considered Landscape
     /// </summary>
     private bool enableAccelerator = true;
     public bool EnableAccelerator { set => enableAccelerator = value; }
     /// <summary>
     /// When the camera dispose the orientation will be set to the portrait
-    /// and accelerator will be disposed
+    /// and accelerator will be disposed.
     /// </summary>
-    private bool disposeAccelerator = true;
+    private bool disposeAccelerator = false;
     public bool DisposeAccelerator { set => disposeAccelerator = value; }
     /// <summary>
     /// Disposing the video will be back to portrait
@@ -31,6 +35,8 @@ public partial class VideoDefault : ContentPage
     /// If camera is busy then you cannot perform camera actions
     /// </summary>
     private bool cameraBusy = false;
+    private bool cameraOrientationBusy = false;
+    private string lastOrientation = "landscape";
     /// <summary>
     /// Check if camera is recording
     /// </summary>
@@ -65,40 +71,51 @@ public partial class VideoDefault : ContentPage
         //Make orientation to landscape
         InitializeComponent();
         Description.Text = cameraDescription;
+        // If accelerator is true enable the auto orientation change
+        if (enableAccelerator)
+        {
+            // First load we dont need the dynamic orientation update
+            DeviceOrientation.MAUI.Orientator.StartAccelerator();
+            cameraOrientationBusy = true;
+            Task.Delay(1000).ContinueWith((_) => cameraOrientationBusy = false);
 
-        _ = CameraBusyDelay(1000);
+            DeviceOrientation.MAUI.Orientator.OnDeviceOrientationChanged += async (sender, args) =>
+            {
+                if (cameraOrientationBusy) return;
+                cameraOrientationBusy = true;
+
+                // Change the orientation if is landscape or reversed
+                if (DeviceOrientation.MAUI.Orientator.DeviceOrientation == DeviceOrientation.MAUI.Orientation.ReverseLandscape && lastOrientation != "reverselandscape")
+                {
+                    lastOrientation = "reverselandscape";
+                    DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.ReverseLandscape);
+                }
+                else if (DeviceOrientation.MAUI.Orientator.DeviceOrientation == DeviceOrientation.MAUI.Orientation.Landscape && lastOrientation != "landscape")
+                {
+                    lastOrientation = "landscape";
+                    DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.Landscape);
+                }
+                // Just return if not
+                else
+                {
+                    cameraOrientationBusy = false;
+                    return;
+                }
+                await Task.Delay(100);
+
+                // Refresh screen
+                await StartCameraView();
+
+                await Task.Delay(500);
+                cameraOrientationBusy = false;
+            };
+        }
 #endif
     }
-
     // Private Functions
     private async Task<bool> StartCameraView()
     {
 #if ANDROID || IOS
-        // Change orientation dynamic
-        if (DeviceOrientation.MAUI.Orientator.DeviceOrientation == DeviceOrientation.MAUI.Orientation.Landscape)
-        {
-            DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.Landscape);
-        }
-        else if (DeviceOrientation.MAUI.Orientator.DeviceOrientation == DeviceOrientation.MAUI.Orientation.ReverseLandscape)
-        {
-            DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.ReverseLandscape);
-        }
-        else
-        {
-            DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.Landscape);
-        }
-        DeviceOrientation.MAUI.Orientator.OnDeviceOrientationChanged += (sender, args) =>
-        {
-            _ = StartCameraView();
-        };
-        await Task.Delay(100);
-        // If accelerator is true enable the auto orientation change
-        if (enableAccelerator)
-        {
-            DeviceOrientation.MAUI.Orientator.AcceleratorUpdateChangeOrientation = true;
-            DeviceOrientation.MAUI.Orientator.AcceleratorUpdateChangeOrientationOnlyLand = true;
-            DeviceOrientation.MAUI.Orientator.StartAccelerator();
-        }
         cameraView.Camera = cameraView.Cameras[cameraPosition];
         TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
         MainThread.BeginInvokeOnMainThread(async () =>
@@ -109,12 +126,27 @@ public partial class VideoDefault : ContentPage
         });
         return await tcs.Task;
 #else
-    return false;
+        return false;
 #endif
     }
 
     private async void CameraViewLoad(object sender, EventArgs e)
     {
+#if ANDROID || IOS
+        // Change orientation before the camera loads
+        if (DeviceOrientation.MAUI.Orientator.DeviceOrientation == DeviceOrientation.MAUI.Orientation.ReverseLandscape)
+        {
+            lastOrientation = "reverselandscape";
+            DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.ReverseLandscape);
+        }
+        else
+        {
+            lastOrientation = "landscape";
+            DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.Landscape);
+        }
+        // Wait a few ticks before for compatibility reasons
+        await Task.Delay(100);
+
         // This is necessary because camera previous closed in different
         // position can cause black screen
         if (History.LastCameraPosition != cameraPosition)
@@ -130,6 +162,7 @@ public partial class VideoDefault : ContentPage
         {
             _ = StartCameraView();
         }
+#endif
     }
 
     private async void CameraStartStopRecording(object sender, EventArgs e)
@@ -163,18 +196,15 @@ public partial class VideoDefault : ContentPage
 
     private void CameraFlashlightSwitch(object sender, EventArgs e)
     {
-#if ANDROID || IOS
         //Verifiy if is not frontal side and not busy
         if (cameraPosition == 0 && !cameraBusy)
         {
             cameraView.TorchEnabled = !cameraView.TorchEnabled;
         }
-#endif
     }
 
     private void CameraPositionSwitch(object sender, EventArgs e)
     {
-#if ANDROID || IOS
         //Stop function if camera is busy
         if (cameraBusy || cameraRecording)
         {
@@ -192,16 +222,14 @@ public partial class VideoDefault : ContentPage
             case 0: cameraPosition = 1; _ = StartCameraView(); break;
             case 1: cameraPosition = 0; cameraView.TorchEnabled = false; _ = StartCameraView(); break;
         }
-#endif
     }
 
     private async Task CameraBusyDelay(int ticks)
     {
-#if ANDROID || IOS
+        if (cameraBusy) return;
         cameraBusy = true;
         await Task.Delay(ticks);
         cameraBusy = false;
-#endif
     }
 
     private void CameraClosed(object sender, EventArgs e)
@@ -221,8 +249,8 @@ public partial class VideoDefault : ContentPage
     protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        History.LastCameraPosition = cameraPosition;
 #if ANDROID || IOS
+        History.LastCameraPosition = cameraPosition;
         DeviceOrientation.MAUI.Orientator.OnDeviceOrientationChanged = null;
         if (disposePortrait) DeviceOrientation.MAUI.Orientator.Get().SetOrientation(DeviceOrientation.MAUI.Orientation.Portrait);
         if (disposeAccelerator) DeviceOrientation.MAUI.Orientator.DisposeAccelerator();

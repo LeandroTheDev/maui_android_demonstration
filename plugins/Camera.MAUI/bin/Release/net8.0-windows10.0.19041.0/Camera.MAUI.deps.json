@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v8.0": {
-      "Camera.MAUI/2.9": {
+      "Camera.MAUI/3.6": {
         "dependencies": {
           "Microsoft.Maui.Controls": "8.0.6",
           "Microsoft.Maui.Controls.Compatibility": "8.0.6",
@@ -449,7 +449,7 @@
     }
   },
   "libraries": {
-    "Camera.MAUI/2.9": {
+    "Camera.MAUI/3.6": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
