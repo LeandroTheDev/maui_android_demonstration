@@ -40,7 +40,7 @@
             <Button Text="Facial Recognition Register" Margin="20" Clicked="ButtonFacialRegisterRecognition"></Button>
             <!--Facial Recognition Analyze Button-->
             <Button Text="Facial Recognition Analyze" Margin="20" Clicked="ButtonFacialAnalyzeRecognition"></Button>
-            <!--Custom Camera Button-->
+            <!--Accelerator Button-->
             <Button Text="Get Accelerator" Margin="20" Clicked="ButtonGetAccelerator"></Button>
             <!--Enable Accelerator-->
             <HorizontalStackLayout HorizontalOptions="Center">
@@ -56,6 +56,8 @@
                 <!--Checkbox-->
                 <CheckBox CheckedChanged="EnableOrientation"/>
             </HorizontalStackLayout>
+            <!--Facial Recognition Analyze Button-->
+            <Button Text="OCR Recognition" Margin="20" Clicked="ButtonOCR"></Button>
             <!--Generic Preview-->
             <Image x:Name="imagePreview" HeightRequest="100" WidthRequest="100"/>
 

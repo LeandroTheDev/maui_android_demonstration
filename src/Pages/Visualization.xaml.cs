@@ -9,6 +9,7 @@ public partial class Visualization : ContentPage
     private bool enableSave;
     // If timeout is enabled then you cannot perform actions
     private bool timeout = false;
+
     public Visualization()
     {
         InitializeComponent();
@@ -362,4 +363,28 @@ public partial class Visualization : ContentPage
             DeviceOrientation.MAUI.Orientator.AcceleratorUpdateChangeOrientation = false;
         }
     }
+    private async void ButtonOCR(object? sender, EventArgs e)
+    {
+        if (timeout) return;
+        timeout = true;
+        _ = Task.Delay(1000).ContinueWith((_) => timeout = false);
+        var camera = new Camera.MAUI.Cameras.PictureDefault()
+        {
+            CameraDescription = "Test",
+            CameraClose = (sender, _) =>
+            {
+
+            },
+            PictureTake = (sender, imageBytes) =>
+            {
+                // Getting image source from bytes
+                var imageSource = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+                // Update image
+                imagePreview.Source = imageSource;
+            }
+        };
+        // Open
+        await Navigation.PushModalAsync(camera);
+    }
+
 }

@@ -1,15 +1,16 @@
-﻿using Plugin.LocalNotification;
+﻿using Android_Native_Demonstration.Pages;
+using Plugin.LocalNotification;
 using Plugin.LocalNotification.EventArgs;
 
 namespace Android_Native_Demonstration;
 
 public partial class App : Application
 {
-    public App()
+    public App(IServiceProvider serviceProvider)
     {
         InitializeComponent();
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
-        MainPage = new Pages.Visualization();
+        MainPage = serviceProvider.GetService<Visualization>();
     }
 
     private void OnNotificationActionTapped(NotificationActionEventArgs e)

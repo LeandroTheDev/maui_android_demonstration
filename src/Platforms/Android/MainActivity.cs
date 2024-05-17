@@ -18,10 +18,12 @@ public class MainActivity : MauiAppCompatActivity
         // Borescope Plugin
         //BorescopePlugin.MAUI.Platforms.Android.Interface.Generate();
 
-        //Orientator Plugin
+        // Orientator Plugin
         DeviceOrientation.MAUI.Platforms.Android.Interface.Generate(this);
 
-        //Facial Recognition Plugin
+        // Facial Recognition Plugin
         FacialRecognition.MAUI.Platforms.Android.Interface.GenerateFacialRecognitionInterface();
+
+        OpticalCharacterRecognition.MAUI.Platforms.Android.MainActivity.Interface.GenerateInterface();
     }
 }

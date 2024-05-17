@@ -1,4 +1,5 @@
-﻿using Camera.MAUI;
+﻿using Android_Native_Demonstration.Pages;
+using Camera.MAUI;
 using Plugin.LocalNotification;
 
 namespace Android_Native_Demonstration;
@@ -34,6 +35,10 @@ public static class Init
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+        // Initialize OCR Recognition
+        builder.Services.AddLogging();
+        builder.Services.AddSingleton<Visualization>();
         return builder;
     }
 }

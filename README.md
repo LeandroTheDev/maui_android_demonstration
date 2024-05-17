@@ -9,6 +9,7 @@ A application made with MAUI demonstrating the possibilities of native functions
 - Image Manipulation. "Change image orientation depending on device accelerator"
 - Local Notification.
 - Facial Recognition.
+- Optical Character Recognition.
 
 ### Necessary plugins for compile
 This commands needs to be executed in src folder
@@ -19,6 +20,7 @@ This commands needs to be executed in src folder
 - dotnet add package DeviceOrientation.MAUI --source ..\plugins\DeviceOrientation.MAUI\bin\Release\
 - dotnet add package Borescope.MAUI --source ..\plugins\Borescope.MAUI\bin\Release\
 - dotnet add package FacialRecognition.MAUI --source ..\plugins\FacialRecognition.MAUI\bin\Release\
+- dotnet add package OCR.MAUI --source ..\plugins\OCR.MAUI\bin\Release\
 
 ### Android Compile
 - dotnet build -f net8.0-android -c Release
